@@ -1,0 +1,89 @@
+{% extends 'mainsite/base/base_authenticated.html' %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+                <h1>settings</h1>
+                <ul id="settings-tabs" class="tabs">
+                    <li class="active"><a href="{%url 'preferences'%}">preferences</a></li>
+                    <li><a href="{%url 'password'%}">password</a></li>
+                    <li><a href="{%url 'email'%}">e-mail</a></li>
+                    <li><a href="{%url 'delete_account'%}">delete account</a></li>
+                </ul>
+                <form method="post" class="vertical" novalidate="novalidate">
+                    {% csrf_token %}
+                    {{ form.errors }}
+                    <div class="validation-summary-valid" data-valmsg-summary="true">
+                        <ul><li style="display:none"></li>
+                        </ul>
+                    </div>
+                    <fieldset class="vertical">
+                        <legend>themes</legend>
+                        <div>
+                            <div class="single-select-toggle">
+                                <input type="hidden" id="ThemeId" name="style" value="{{ user.theme.name }}">
+                                <div class="btn-group">
+                                    {% for theme in built_in_themes %}
+                                    <button type="button" data-value="{{theme.name}}" class="btn {% if user.theme.name == theme.name %}active{% endif %}">{{theme.name}}</button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>appearance</legend>
+                        <div>
+                            <div>
+                                <label for="TopicPageSize">entry per page</label>
+                                <div class="single-select-toggle">
+                                    <input type="hidden" id="TopicPageSize" name="entry_count" value="{{ user.entry_pref }}">
+                                    <div class="btn-group">
+                                        <button type="button" data-value="10" class="btn {% if user.entry_pref == 10 %}active{% endif %}">10</button>
+                                        <button type="button" data-value="25" class="btn {% if user.entry_pref == 25 %}active{% endif %}">25</button>
+                                        <button type="button" data-value="50" class="btn {% if user.entry_pref == 50 %}active{% endif %}">50</button>
+                                        <button type="button" data-value="75" class="btn {% if user.entry_pref == 75 %}active{% endif %}">75</button>
+                                        <button type="button" data-value="100" class="btn {% if user.entry_pref == 100 %}active{% endif %}">100</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="TopicPageSize">title per page</label>
+                                <div class="single-select-toggle">
+                                    <input type="hidden" id="IndexPageSize" name="title_count" value="{{ user.title_pref }}">
+                                    <div class="btn-group">
+                                        <button type="button" data-value="25" class="btn {% if user.title_pref == 25 %}active{% endif %}">25</button>
+                                        <button type="button" data-value="50" class="btn {% if user.title_pref == 50 %}active{% endif %}">50</button>
+                                        <button type="button" data-value="75" class="btn {% if user.title_pref == 75 %}active{% endif %}">75</button>
+                                        <button type="button" data-value="100" class="btn {% if user.title_pref == 100 %}active{% endif %}">100</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="actions">
+                        <button type="submit" class="primary">save</button>
+                    </div>
+                </form>
+                <br>
+                <p>
+                    <a href="" class="link-special" target="_blank" >
+                        website terms of service
+                    </a>
+                </p>
+                <br>
+            </section>
+            <aside id="aside" style="margin-top: 10px">
+                <section id="topic-channel-info">
+                    <div id="topic-channels">
+                        <h2 id="channels">want more?</h2>
+                        <ul>
+                            <li><a class="index-link" href="" title="contact page">contact us here</a> so we can add it</li>
+                        </ul>
+                    </div>
+                </section>
+                <div id="sticky-anchor"></div>
+                <div id="sticky-criteo">
+                </div>
+            </aside>
+        </div>
+{% endblock %}

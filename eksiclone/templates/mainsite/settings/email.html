@@ -1,0 +1,67 @@
+{% extends 'mainsite/base/base_authenticated.html' %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+                <h1>settings</h1>
+                <ul id="settings-tabs" class="tabs">
+                    <li><a href="{%url 'preferences'%}">preferences</a></li>
+                    <li><a href="{%url 'password'%}">password</a></li>
+                    <li class="active"><a href="{%url 'email'%}">e-mail</a></li>
+                    <li><a href="{%url 'delete_account'%}">delete account</a></li>
+                </ul>
+                <div class="form-container" id="register-form-container">
+                    <h1>email configiration form</h1>
+                    <form action="" class="registration-form" id="register-form" method="POST">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        <fieldset class="vertical">
+                            <div>
+                                <label for="oldemail">old email</label>
+                                <input id="oldemail" name="old" type="email" value="">
+                            </div>
+                            <div>
+                                <label for="old_">old email confirmation</label>
+                                <input id="old_" name="old_" type="email" value="">
+                            </div>
+                            <div class="row">
+                                <div class="col-label">
+                                    <label for="newemail">new email</label>
+                                </div>
+                                <div class="col-input">
+                                    <input id="newemail" name="new" type="email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-label">
+                                    <label for="new_">new email confirmation</label>
+                                </div>
+                                <div class="col-input">
+                                    <input id="new_" name="new_" type="email">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="passcon">password confirmation</label>
+                                <input id="passcon" name="password" type="password" value="">
+                            </div>
+                            <div class="actions">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">change it mate</button>
+                            </div>
+                        </fieldset>
+                    </form></div>
+            </section>
+            <aside id="aside" style="margin-top: 10px">
+                <section id="topic-channel-info">
+                    <div id="topic-channels">
+                        <h2 id="channels">want more?</h2>
+                        <ul>
+                            <li><a class="index-link" href="" title="contact page">contact us here</a> so we can add it</li>
+                        </ul>
+                    </div>
+                </section>
+                <div id="sticky-anchor"></div>
+                <div id="sticky-criteo">
+                </div>
+            </aside>
+        </div>
+{% endblock %}

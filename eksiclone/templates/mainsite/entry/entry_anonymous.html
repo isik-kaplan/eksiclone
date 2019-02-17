@@ -1,0 +1,97 @@
+{% extends 'mainsite/base/base_anonymous.html' %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+                <div id="topic">
+                    <h1 id="the_title">
+                        {% if entries_of == "user" %}
+                        <a href="{% url 'profile' user=entry.author.url %}" itemprop="url">
+                            <span itemprop="name">{{entry.author}}</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'title' title_text=entry.title.url %}" itemprop="url">
+                            <span itemprop="name">{{entry.title}}</span>
+                        </a>
+                        {% endif %}
+                    </h1>
+                    <div class="clearfix sub-title-container">
+                        <div class="sub-title-menu">
+                            <div id="topic-share-menu"></div>
+                            <span class="nice-mode-toggler">
+                            sort:&nbsp;
+                            <a href="?page={{page_obj.number}}&order=points&entries_of={{entries_of}}" class="{% if order == 'points' %}nice-on {% endif %}">good</a>
+                            <span> | </span>
+                            <a href="?page={{page_obj.number}}&order=date&entries_of={{entries_of}}" class="{% if order == 'date' %}nice-on {% endif %}">date</a>
+                            </span>
+                            <div>
+                                <a title="notify on new entries">follow</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if prev.count > 0%}
+                    <a href="{% url 'entry' entry_pk=prev.entry.pk %}?order={{order}}&entries_of={{entries_of}}" class="showall more-data" title="tümünü göster">{{prev.count}} more entry</a>
+                    {% endif %}
+                    <ul id="entry-list">
+                        <li>
+                            <div class="content">
+                                {{ entry.text|linebreaks }}
+                            </div>
+                            <footer>
+                                <div class="feedback">
+                                <span class="share-links"><a href="//facebook.com/current.entry.page" aria-label="facebook" title="facebook" class="svgico svgico-facebook">
+                                    <svg class="dic" id="svg-icon-facebook">
+                                        <use xlink:href="#dic-icon-facebook"></use>
+                                    </svg></a>
+                                        <a data-href="{{entry.sharetwitter}}" aria-label="twitter" title="twitter" class="svgico svgico-twitter">
+                                    <svg class="dic" id="svg-icon-twitter">
+                                        <use xlink:href="#dic-icon-twitter"></use>
+                                    </svg></a>
+                                </span>
+                                    <span class="rate-options"><a class="like" title="şükela!">
+                                    <svg class="dic" id="svg-chevron-up">
+                                        <use xlink:href="#dic-chevron-up-thick"></use>
+                                    </svg></a><a class="dislike" title="çok kötü"><svg class="dic" id="svg-chevron-down">
+                                        <use xlink:href="#dic-chevron-down-thick"></use>
+                                    </svg></a>
+                                </span>
+                                    <span class="favorite-links" style="">
+                                    <a class="favorite-link" title="favorite">
+                                        <svg class="dic"><use xlink:href="#dic-drop"></use>
+                                        </svg>
+                                    </a>
+                                <a class="fav">{{entry.points}}</a>
+                                </span>
+                                </div>
+                                <div class="info">
+                                    <a data-id="{{entry.pk}}" title="report" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
+                                    <a href="{%url 'entry' entry_pk=entry.pk%}{%if order == 'good'%}?order=good{%endif%}" class="entry-date permalink">{{entry.date}}</a>
+                                    <a class="entry-author" href="{%url 'profile' user=entry.author %}">{{ entry.author }}</a>
+                                </div>
+                            </footer>
+                        </li>
+                    </ul>
+                    {% if next.count > 0}
+                    <a href="{% url 'entry' entry_pk=next.entry.pk %}?order={{order}}&entries_of={{entries_of}}" class="showall more-data" title="tümünü göster">{{next.count}} more entry</a>
+                    {% endif %}
+                    <div style="text-align:center">
+                    </div>
+                </div>
+            </section>
+            <aside id="aside" style="margin-top: 10px">
+                <section id="topic-channel-info">
+                    <div id="topic-channels">
+                        <h2 id="channels">tags</h2>
+                        <ul>
+                            {% for channel in entry.title.title_channels.all %}
+                            <li><a class="index-link" title="{{channel.channel_description}}">#{{ channel }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
+                <div id="sticky-anchor"></div>
+                <div id="sticky-criteo">
+                </div>
+            </aside>
+        </div>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'mainsite/base/base_authenticated.html' %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+                <div id="topic">
+                    <h1 id="the_title">
+                        <a href="" itemprop="url">
+                            <span itemprop="name">{{title_text}}</span>
+                        </a>
+                    </h1>
+                    <div class="clearfix sub-title-container">
+                        <div class="sub-title-menu">
+                        {%if entries%}
+                            <div id="topic-share-menu"></div>
+                            <span class="nice-mode-toggler">
+                            sort:&nbsp;
+                            <a href="?page={{page_obj.number}}&order=points" class="{% if order == '-points' %}nice-on {% endif %}">good</a>
+                            <span> | </span>
+                            <a href="?page={{page_obj.number}}&order=date" class="{% if order == 'date' %}nice-on {% endif %}">date</a>
+                            </span>
+                            <div>
+                                <a title="notify on new entries">follow</a>
+                            </div>
+                        </div>
+                        <div class="pager">
+                            {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
+                            {% endif %}
+                            <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
+                                {% for page in page_obj.paginator.page_range %}
+                                <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
+                                {% endfor %}
+                            </select>/
+                            <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
+                            {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div style='clear:both'></div>
+                    </div>
+                    <ul id="entry-list">
+                    {%if entries%}
+                        {% for entry in entries %}
+                        <li>
+                            <div class="content">
+                                {{ entry.text|linebreaks }}
+                            </div>
+                            <footer>
+                                <div class="feedback">
+                                <span class="share-links"><a href="//facebook.com/current.entry.page" aria-label="facebook" title="facebook" class="svgico svgico-facebook">
+                                    <svg class="dic" id="svg-icon-facebook">
+                                        <use xlink:href="#dic-icon-facebook"></use>
+                                    </svg></a>
+                                        <a data-href="{{entry.sharetwitter}}" aria-label="twitter" title="twitter" class="svgico svgico-twitter">
+                                    <svg class="dic" id="svg-icon-twitter">
+                                        <use xlink:href="#dic-icon-twitter"></use>
+                                    </svg></a>
+                                </span>
+                                    <span class="rate-options"><a class="like" title="şükela!">
+                                    <svg class="dic" id="svg-chevron-up">
+                                        <use xlink:href="#dic-chevron-up-thick"></use>
+                                    </svg></a><a class="dislike" title="çok kötü"><svg class="dic" id="svg-chevron-down">
+                                        <use xlink:href="#dic-chevron-down-thick"></use>
+                                    </svg></a>
+                                </span>
+                                    <span class="favorite-links" style="">
+                                    <a class="favorite-link" title="favorite">
+                                        <svg class="dic"><use xlink:href="#dic-drop"></use>
+                                        </svg>
+                                    </a>
+                                <a class="fav">{{entry.points}}</a>
+                                </span>
+                                </div>
+                                <div class="info">
+                                    <a data-id="{{entry.pk}}" title="{% if entry.author == user %}delete{% else %}report{% endif %}" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
+                                    <a href="{% url 'entry' entry_pk=entry.pk %}" class="entry-date permalink">{{entry.date}}</a>
+                                    <a class="entry-author" href="{%url 'profile' user=entry.author %}">{{ entry.author }}</a>
+                                </div>
+                            </footer>
+                        </li>
+                        {% endfor %}
+                    {%else%}
+                        <li>
+                            <div class="content">
+                                {{empty_title|safe}}
+                            </div>
+                        </li>
+                    {%endif%}
+                    </ul>
+                        {%if entries%}
+                        <div class="pager">
+                            {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
+                            {% endif %}
+                            <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
+                                {% for page in page_obj.paginator.page_range %}
+                                <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
+                                {% endfor %}
+                            </select>/
+                            <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
+                            {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    <div style='clear:both'></div>
+                    <div style="text-align:center"></div>
+                    {% if allowed_to_write %}
+                    <div class="entry-edit-form-container">
+                        <form method="POST" class="editform" >
+                            {% csrf_token %}
+                            {{ form.errors }}
+                            <fieldset class="vertical">
+                            <div class="edittools"></div>
+                                <label>
+                                    <input style="display: none" name="title" value="{{title_text}}">
+                                </label>
+                                <textarea minlength="5" style="resize: vertical;min-height: 2cm; overflow:hidden" name="text" class="edittextbox with-helpers track-changes" id="editbox" placeholder="some place holder because this looks good" rows="10"></textarea>
+                            <div class="actions">
+                                &nbsp;&nbsp;
+                                <button style="border-color: #494949" type="submit" class="primary">send</button>
+                            </div>
+                        </fieldset>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+            <aside id="aside" style="margin-top: 10px">
+                <section id="topic-channel-info">
+                    <div id="topic-channels">
+                        <h2 id="channels">tags</h2>
+                        <ul>
+                        {%if entries%}
+                            {% for channel in title.channels.all %}
+                            <li><a class="index-link" title="{{channel.description}}">#{{ channel }}</a></li>
+                            {% endfor %}
+                        {%else%}
+                            <li><a class="index-link" href="whatever" title="Footloose Description">#footlose</a></li>
+                        {%endif%}
+                        </ul>
+                    </div>
+                </section>
+                <div id="sticky-anchor"></div>
+                <div id="sticky-criteo">
+                </div>
+            </aside>
+        </div>
+{% endblock %}

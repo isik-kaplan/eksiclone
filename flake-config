@@ -1,0 +1,9 @@
+[flake8]
+ignore =
+    # 120 chars is okay
+    E501
+    # __init__ imports
+    F401,
+exclude =
+    templates
+
