@@ -1,9 +1,9 @@
-- Find a solution to separate the cookies of api subdomain
-- Turn eksiclone.utils.decorators.confirm_origin to a middleware # Done.
-- Use Field.widget.attrs mapping to add css to forms, instead of having them in the template.
-- Implement a django permission system # Maybe even a separate library
-- REFACTOR mainsite_template_tags.py
-- Finish the API implementation
-- Implement delete-deactivate account
-- Oh god why haven't I commented on ANY function ever?
-- ...
+- Incorrectly implemented:
+    Use auth permissions for authors instead of boolean field
+    Use widgets instead of directly writing forms inside the templates
+    Refactor entire template tags
+- API
+- Admin
+    Create model admins specific per model
+- MISC
+    Find a reason to live
