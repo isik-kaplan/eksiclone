@@ -1,13 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from mainsite.app_models.common import CommonFields
 from utils.model_decorators import slugify, represent
 from utils.utils import unmake_url
 
 
 @slugify('username', '-', '-')
 @represent(strfields='username')
-class User(AbstractUser):
+class User(AbstractUser, CommonFields):
     email = models.EmailField('email address', blank=False, unique=True, null=False)
     theme = models.ForeignKey('Theme', on_delete=models.CASCADE, null=True, blank=True, default=1)
     bio = models.CharField(max_length=1000, default="User Default Bio")

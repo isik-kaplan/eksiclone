@@ -1,11 +1,13 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from utils.utils import unmake_url
 
 
 class CommonFields(models.Model):
     """@DynamicAttrs"""
-    date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
+    creation_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
+    history = HistoricalRecords(inherit=True)
 
     @classmethod
     def from_url(cls, url):
