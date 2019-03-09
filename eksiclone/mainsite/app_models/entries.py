@@ -5,7 +5,7 @@ from utils.model_decorators import slugify, represent
 
 
 @slugify('pk', '-', '-')
-@represent(strfields='text')
+@represent(strfields=['text', 'author'])
 class Entry(CommonFields):
     title = models.ForeignKey('Title', on_delete=models.CASCADE)
     text = models.CharField(max_length=2500, null=True, blank=True)
