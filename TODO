@@ -7,3 +7,4 @@
     Create model admins specific per model
 - MISC
     Find a reason to live
+    Remove the need to init for the urls
