@@ -3,8 +3,11 @@
     Use widgets instead of directly writing forms inside the templates
     Refactor entire template tags
 - API
+    API should be a different app, or should it?
 - Admin
     Create model admins specific per model
 - MISC
     Find a reason to live
     Remove the need to init for the urls
+- Localization
+    Start using gettext
