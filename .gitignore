@@ -3,3 +3,4 @@
 *__pycache__*
 /eksiclone/templates/_mainsite
 /eksiclone/templatetags
+.gitignore

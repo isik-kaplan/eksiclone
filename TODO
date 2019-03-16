@@ -10,4 +10,4 @@
     Find a reason to live
     Remove the need to init for the urls
 - Localization
-    Start using gettext
+    Start implementing il8n
