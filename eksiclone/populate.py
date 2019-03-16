@@ -7,7 +7,7 @@ fake = faker.Faker()
 
 from eksiclone.wsgi import application
 
-application
+print(application)
 
 from mainsite.app_models import (
     User,
