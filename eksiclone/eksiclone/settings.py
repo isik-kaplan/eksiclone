@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     # top 3rd party
-    # 'whitenoise.runserver_nostatic',
+    'whitenoise.runserver_nostatic',
     # custom
     'mainsite.apps.MainsiteConfig',
 
@@ -163,7 +163,6 @@ REST_FRAMEWORK = {
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-"SESSION_COOKIE_DOMAIN = 'djangotesting.local'"
 
 # WhiteNoise
 
