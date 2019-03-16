@@ -4,6 +4,7 @@ from django.db import models
 from mainsite.app_models.common import CommonFields
 from utils.model_decorators import slugify, represent
 from utils.utils import unmake_url
+from django.db.models import Sum, F
 
 
 @slugify('username', '-', '-')
@@ -15,9 +16,6 @@ class User(AbstractUser, CommonFields):
     favs = models.ManyToManyField('Entry', blank=True, related_name="favs")
     likes = models.ManyToManyField('Entry', blank=True, related_name="likes")
     dislikes = models.ManyToManyField('Entry', blank=True, related_name="dislikes")
-    liked_count = models.IntegerField(default=0)
-    disliked_count = models.IntegerField(default=0)
-    faved_count = models.IntegerField(default=0)
     entry_pref = models.IntegerField(default=10)
     title_pref = models.IntegerField(default=50)
     trophies = models.ManyToManyField('UserTrophy', blank=True, related_name="trophies")
@@ -25,6 +23,18 @@ class User(AbstractUser, CommonFields):
     is_author = models.BooleanField(default=False)
     lights = models.BooleanField(default=True)
     themes = models.ManyToManyField('Theme', blank=True, related_name="themes")
+
+    @property
+    def liked_count(self):
+        return self.entry_set.aggregate(Sum(F('likes'))).get('likes__sum', 0)
+
+    @property
+    def disliked_count(self):
+        return self.entry_set.aggregate(Sum(F('dislikes'))).get('dislikes__sum', 0)
+
+    @property
+    def faved_count(self):
+        return self.entry_set.aggregate(Sum(F('favs'))).get('favs__sum', 0)
 
     def toggle_lights(self):
         self.lights = not self.lights
