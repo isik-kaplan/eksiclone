@@ -60,7 +60,5 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
             'order': getattr(self, '_order', None),
             'allowed_to_write': getattr(self.request.user, 'is_author', False),
         }
-        x =  {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}
-        print(x)
-        return x
+        return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}
 

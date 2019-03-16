@@ -17,8 +17,6 @@ class PreferencesForm(forms.Form):
 
     @suppress_and_return(Theme.DoesNotExist, instead=Theme.objects.get(name='standard', lights=True))
     def clean_style(self):
-        print(self.cleaned_data['style'], '---------')
-        print(self.request.user.lights)
         return Theme.objects.get(name=self.cleaned_data['style'], lights=self.request.user.lights)
 
     class Meta:

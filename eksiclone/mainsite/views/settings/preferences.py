@@ -25,14 +25,12 @@ class Preferences(FormView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         last = super().get_context_data(**kwargs)
         theme = {'built_in_themes': Theme.built_ins(self.request.user.lights).all()}
-        print(theme)
         last.update(theme)
         return last
 
     def form_valid(self, form):
         user = self.request.user
         data = form.cleaned_data
-        print(data)
         update = {
             'theme': data['style'],
             'entry_pref': data['entry_count'],

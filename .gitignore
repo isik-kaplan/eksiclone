@@ -1,6 +1,6 @@
-/eksiclone/eksiclone/settings.py
 .idea
 *__pycache__*
 /eksiclone/templates/_mainsite
 /eksiclone/templatetags
 .gitignore
+/eksiclone/static

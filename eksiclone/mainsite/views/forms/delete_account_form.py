@@ -17,7 +17,6 @@ class DeleteAccountForm(forms.Form):
         self.request = request
 
     def validate(self):
-        print(self.cleaned_data)
         try:
             if not self.request.user.check_password(self.cleaned_data['password']):
                 raise forms.ValidationError('Incorrect password')
