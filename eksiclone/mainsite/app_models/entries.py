@@ -10,9 +10,12 @@ class Entry(CommonFields):
     title = models.ForeignKey('Title', on_delete=models.CASCADE)
     text = models.CharField(max_length=2500, null=True, blank=True)
     author = models.ForeignKey('User', default=1, on_delete=models.SET_DEFAULT, null=True, blank=True)
-    points = models.IntegerField(default=0, null=True, blank=True)
     readability = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    @property
+    def points(self):
+        return self.likes.count()
 
     class Meta:
         verbose_name_plural = 'Entries'

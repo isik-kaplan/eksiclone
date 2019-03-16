@@ -3,3 +3,4 @@
 /eksiclone/templates/_mainsite
 /eksiclone/templatetags
 /eksiclone/static
+/eksiclone/env.bat

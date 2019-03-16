@@ -46,23 +46,20 @@ def fake_user(count):
         )
         new_user.set_password(password)
         new_user.save()
-        for e1, e2, e3, t in zip(random_object(Entry, False), random_object(Entry, False), random_object(Entry, False),
-                                 random_object(UserTrophy, False)):
-            new_user.likes.add(e1)
-            new_user.dislikes.add(e2)
-            new_user.favs.add(e3)
-            new_user.trophies.add(t)
-            new_user.save()
+        print('CREATED USER:', new_user)
 
 
 def fake_entry(count):
     for i in range(int(count)):
-        Entry(
+        e = Entry(
             title=random_object(Title),
             text=fake.text(),
             author=random_object(User),
             readability=random.choices([True, False], weights=[0.9, 0.1], k=1)[0],
-        ).save()
+        )
+        e.save()
+
+        print('CREATED ENTRY:', e)
 
 
 def fake_title(count):
@@ -76,6 +73,7 @@ def fake_title(count):
         )
 
         new_title.save()
+        print('CREATED TITLE:', new_title)
 
         for channel in random_object(TitleChannel, False):
             new_title.channels.add(channel)
@@ -84,22 +82,50 @@ def fake_title(count):
 
 def fake_trophy(count):
     for i in range(int(count)):
-        UserTrophy(
+        trop = UserTrophy(
             name=fake.word(),
             description=fake.sentence()
-        ).save()
+        )
+        trop.save()
+        print('CREATED TROPHY:', trop)
 
 
 def fake_channel(count):
     for i in range(int(count)):
-        TitleChannel(
+        chan = TitleChannel(
             name=fake.word(),
             description=fake.sentence(),
             is_main=random.choices([True, False], weights=[0.2, 0.8], k=1)[0]
-        ).save()
+        )
+        chan.save()
+        print('CREATED CHANNEL:', chan)
+
+
+def fake_relations():
+    EC = Entry.objects.count()
+    all_entries = list(Entry.objects.all())
+    random.shuffle(all_entries)
+    for user in User.objects.all():
+        print('CREATING RELATIONS FOR:', user)
+        entries_to_like = all_entries[0:random.randint(0, EC)]
+        random.shuffle(all_entries)
+        entries_to_dislike = all_entries[0:random.randint(0, EC)]
+        random.shuffle(all_entries)
+        entries_to_fav = all_entries[0:random.randint(0, EC)]
+        user.likes.add(*entries_to_like)
+        user.dislikes.add(*entries_to_dislike)
+        user.likes.remove(*entries_to_dislike)
+        user.favs.add(*entries_to_fav)
+
+
+def fake_admin():
+    u = User(username='admin', is_staff=True, is_superuser=True)
+    u.set_password('adminpassword')
+    u.save()
 
 
 if __name__ == '__main__':
+    fake_admin()
     print('Recommended trophy count is 10')
     fake_trophy(input('Trophy count: '))
     print('Recommended channel count is 10')
@@ -110,3 +136,4 @@ if __name__ == '__main__':
     fake_title(input('Title count: '))
     print('Recommended entry count is 2000')
     fake_entry(input('Entry count: '))
+    fake_relations()

@@ -48,15 +48,15 @@
                                         <use xlink:href="#dic-icon-twitter"></use>
                                     </svg></a>
                                 </span>
-                                    <span class="rate-options"><a class="like" title="şükela!">
+                                    <span class="rate-options"><a class="like {% if entry in user.likes.all %} voted {% endif %}" title="şükela!">
                                     <svg class="dic" id="svg-chevron-up">
                                         <use xlink:href="#dic-chevron-up-thick"></use>
-                                    </svg></a><a class="dislike" title="çok kötü"><svg class="dic" id="svg-chevron-down">
+                                    </svg></a><a class="dislike {% if entry in user.dislikes.all %} voted {% endif %}" title="çok kötü"><svg class="dic" id="svg-chevron-down">
                                         <use xlink:href="#dic-chevron-down-thick"></use>
                                     </svg></a>
                                 </span>
                                     <span class="favorite-links" style="">
-                                    <a class="favorite-link" title="favorite">
+                                    <a class="favorite-link {% if entry in user.favs.all %} favorited {% endif %}" title="favorite">
                                         <svg class="dic"><use xlink:href="#dic-drop"></use>
                                         </svg>
                                     </a>
