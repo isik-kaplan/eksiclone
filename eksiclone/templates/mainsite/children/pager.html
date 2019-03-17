@@ -1,0 +1,14 @@
+<div class="pager">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
+    {% endif %}
+    <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
+        {% for page in page_obj.paginator.page_range %}
+        <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
+        {% endfor %}
+    </select>/
+    <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
+    {% endif %}
+</div>

@@ -9,37 +9,7 @@
                             <span itemprop="name">{{title_text}}</span>
                         </a>
                     </h1>
-                    <div class="clearfix sub-title-container">
-                        <div class="sub-title-menu">
-                        {%if entries%}
-                            <div id="topic-share-menu"></div>
-                            <span class="nice-mode-toggler">
-                            sort:&nbsp;
-                            <a href="?page={{page_obj.number}}&order=points" class="{% if order == 'points' %}nice-on {% endif %}">good</a>
-                            <span> | </span>
-                            <a href="?page={{page_obj.number}}&order=date" class="{% if order == 'date' %}nice-on {% endif %}">date</a>
-                            </span>
-                            <div>
-                                <a title="notify on new entries">follow</a>
-                            </div>
-                        </div>
-                        <div class="pager">
-                            {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
-                            {% endif %}
-                            <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
-                                {% for page in page_obj.paginator.page_range %}
-                                <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
-                                {% endfor %}
-                            </select>/
-                            <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
-                            {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
-                            {% endif %}
-                        </div>
-                        {% endif %}
-                        <div style='clear:both'></div>
-                    </div>
+                    {% include 'mainsite/children/sortable_pager.html' %}
                     <ul id="entry-list">
                     {%if entries%}
                         {% for entry in entries %}
@@ -48,31 +18,7 @@
                                 {{ entry.text|linebreaks }}
                             </div>
                             <footer>
-                                <div class="feedback">
-                                <span class="share-links"><a href="//facebook.com/current.entry.page" aria-label="facebook" title="facebook" class="svgico svgico-facebook">
-                                    <svg class="dic" id="svg-icon-facebook">
-                                        <use xlink:href="#dic-icon-facebook"></use>
-                                    </svg></a>
-                                        <a data-href="{{entry.sharetwitter}}" aria-label="twitter" title="twitter" class="svgico svgico-twitter">
-                                    <svg class="dic" id="svg-icon-twitter">
-                                        <use xlink:href="#dic-icon-twitter"></use>
-                                    </svg></a>
-                                </span>
-                                    <span class="rate-options"><a class="like {% if user.is_authenticated and entry in user.likes.all %} voted {% endif %}" title="şükela!">
-                                    <svg class="dic" id="svg-chevron-up">
-                                        <use xlink:href="#dic-chevron-up-thick"></use>
-                                    </svg></a><a class="dislike {% if user.is_authenticated and entry in user.dislikes.all %} voted {% endif %}" title="çok kötü"><svg class="dic" id="svg-chevron-down">
-                                        <use xlink:href="#dic-chevron-down-thick"></use>
-                                    </svg></a>
-                                </span>
-                                    <span class="favorite-links" style="">
-                                    <a class="favorite-link {% if user.is_authenticated and entry in user.favs.all %} voted {% endif %}" title="favorite">
-                                        <svg class="dic"><use xlink:href="#dic-drop"></use>
-                                        </svg>
-                                    </a>
-                                <a class="fav">{{entry.points}}</a>
-                                </span>
-                                </div>
+                                {% include 'mainsite/children/feedback.html' %}
                                 <div class="info">
                                     <a data-id="{{entry.pk}}" title="{% if entry.author == user %}delete{% else %}report{% endif %}" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
                                     <a href="{% url 'entry' entry_pk=entry.pk %}" class="entry-date permalink">{{entry.date}}</a>
@@ -90,21 +36,8 @@
                     {%endif%}
                     </ul>
                     {%if entries%}
-                        <div class="pager">
-                            {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
-                            {% endif %}
-                            <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
-                                {% for page in page_obj.paginator.page_range %}
-                                <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
-                                {% endfor %}
-                            </select>/
-                            <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
-                            {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
-                            {% endif %}
-                        </div>
-                        {% endif %}
+                    {% include 'mainsite/children/pager.html' %}
+                    {% endif %}
                     <div style='clear:both'></div>
                     <div style="text-align:center"></div>
                     {% if user.is_authenticated and allowed_to_write %}
