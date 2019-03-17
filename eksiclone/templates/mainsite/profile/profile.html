@@ -40,25 +40,6 @@
                         {% endif %}
                     <div style='clear:both'></div>
                     <div style="text-align:center"></div>
-                    {% if user.is_authenticated and allowed_to_write %}
-                    <div class="entry-edit-form-container">
-                        <form method="POST" class="editform" >
-                            {% csrf_token %}
-                            {{ form.errors }}
-                            <fieldset class="vertical">
-                            <div class="edittools"></div>
-                                <label>
-                                    <input style="display: none" name="title" value="{{title_text}}">
-                                </label>
-                                <textarea minlength="5" style="resize: vertical;min-height: 2cm; overflow:hidden" name="text" class="edittextbox with-helpers track-changes" id="editbox" placeholder="some place holder because this looks good" rows="10"></textarea>
-                            <div class="actions">
-                                &nbsp;&nbsp;
-                                <button style="border-color: #494949" type="submit" class="primary">send</button>
-                            </div>
-                        </fieldset>
-                        </form>
-                    </div>
-                    {% endif %}
                 </div>
             </section>
             <aside id="aside" style="margin-top: 10px">

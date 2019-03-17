@@ -15,4 +15,16 @@ class UserTrophyAdmin(BaseAdmin):
         'is_staff',
         'is_active',
         'date_joined',
+        'is_author',
+    ]
+
+    search_fields = [
+        'username',
+    ]
+
+    list_filter = [
+        'is_author',
+        'is_staff',
+        'is_active',
+        'is_confirmed',
     ]
