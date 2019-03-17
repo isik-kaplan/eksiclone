@@ -167,3 +167,5 @@ LOGOUT_REDIRECT_URL = '/'
 # WhiteNoise
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+WHITENOISE_AUTOREFRESH = True  # change on production
