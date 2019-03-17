@@ -1,3 +1,4 @@
+from django.db.models import F, Count
 from django.http import Http404
 from django.views.generic import DetailView
 
@@ -25,7 +26,7 @@ class EntryPage(DetailView, UrlMixin, PaginatorMixin):
         self.cached: Entry = None
         self.entries_of = None
 
-    @order_by('points', default='date')
+    @order_by('points', not_fields={'points': Count(F('likes'))}, default='date')
     def _get_queryset(self):
         entry = Entry.objects.get(pk=self.entry_pk)
         self.entries_of = self.request.GET.get('entries_of', 'title')

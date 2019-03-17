@@ -1,3 +1,4 @@
+from django.db.models import F, Count
 from django.views.generic import ListView
 
 from mainsite.app_models import (
@@ -20,7 +21,7 @@ class ProfilePage(ListView, UrlMixin, PaginatorMixin):
     context_object_name = 'entries'
 
     @suppress_and_return(User.DoesNotExist, instead=User.objects.none())
-    @order_by('points', default='date')
+    @order_by('points', not_fields={'points': Count(F('likes'))}, default='date')
     def get_queryset(self):
         user = User.from_url(self.user)
         queryset = user.entry_set.filter(readability=True)

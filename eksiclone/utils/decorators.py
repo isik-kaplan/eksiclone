@@ -49,7 +49,11 @@ def class_context_manager(**context):
     return decorator
 
 
-def order_by(*args, default):
+def order_by(*args, not_fields=None, default):
+    if not_fields is None:
+        not_fields = {}
+    not_fields= {'_' + k: v for k, v in not_fields.items()}
+
     def actual_decorator(f):
         @wraps(f)
         def wrapper(self, *a, **kw):
@@ -60,6 +64,9 @@ def order_by(*args, default):
             else:
                 order = default
             self._order = order
+            if '_' + order in not_fields:
+                queryset = queryset.annotate(**not_fields)
+                order = '_' + order
             default_prefix = '-' if _order in args and order != 'date' else ''
             return queryset.order_by(default_prefix + order, 'date')
 

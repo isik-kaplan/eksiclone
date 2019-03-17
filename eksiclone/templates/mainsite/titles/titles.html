@@ -1,0 +1,47 @@
+{% extends 'mainsite/base/base_anonymous.html' %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+                <h1>{{channel}}</h1>
+                <div class="pager">
+                    <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
+                    <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
+                        {% for page in page_obj.paginator.page_range %}
+                            <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
+                        {% endfor %}
+                    </select>/
+                    <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
+                    <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
+                </div>
+                <ul class="topic-list">
+                    {% for title in titles %}
+                        <li><a href="{%url "title" title_text=title.url%}" draggable="true">{{title.text}}<small>0</small></a></li>
+                    {% endfor %}
+                </ul>
+                <div class="pager">
+                    <a href="?page={{ page_obj.previous_page_number }}&order={{order}}" rel="prev" title="önceki sayfa" class="prev">«</a>
+                    <select size="1" name="links" onchange="window.location.href=this.value;" title="pages">
+                        {% for page in page_obj.paginator.page_range %}
+                            <option {% if page == page_obj.number %}selected="selected"> {% else %} value="?page={{page}}&order={{order}}">{% endif %}{{ page }}</option>
+                        {% endfor %}
+                    </select>/
+                    <a href="?page={{page_obj.paginator.num_pages}}&order={{order}}" title="son sayfa" class="last">{{page_obj.paginator.num_pages}}</a>
+                    <a href="?page={{ page_obj.next_page_number }}&order={{order}}" rel="next" title="sonraki sayfa" class="next">»</a>
+                </div>
+            </section>
+            <aside id="aside" style="margin-top: 10px">
+                <section id="topic-channel-info">
+                    <div id="topic-channels">
+                        <h2 id="channels">information about titles</h2>
+                        <ul>
+                            <li><a class="index-link">{{description}}</a></li>
+                        </ul>
+                    </div>
+                </section>
+                <div id="sticky-anchor"></div>
+                <div id="sticky-criteo">
+                </div>
+            </aside>
+        </div>
+{% endblock %}

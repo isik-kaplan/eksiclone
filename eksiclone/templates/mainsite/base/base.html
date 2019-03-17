@@ -1,0 +1,259 @@
+<!doctype HTML>
+{% load staticfiles %}
+{% load mainsite_template_tags %}
+<html lang="en">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="{%static 'mainsite/misc/favicon.ico' %}" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
+
+    <link type="text/css" id="user-site-theme" rel="stylesheet" href="{% if user.is_authenticated %}{%static user.theme.path %}{% else %}{%static 'mainsite/style/light.standard.css' %}{% endif %}" />
+
+
+    <script src="{%static 'mainsite/functionality/javascript1.js' %}"></script>
+    <script src="{%static 'mainsite/functionality/javascript2.js' %}"></script>
+    <script src="{%static 'mainsite/functionality/javascript6.js' %}"></script>
+
+    <!--script defer src="{%static 'mainsite/functionality/javascript5.js' %}"></script-->
+    <script defer src="{%static 'mainsite/functionality/javascript3.js' %}"></script>
+    <script defer src="{%static 'mainsite/functionality/javascript4.js' %}"></script>
+
+    <script>
+        function _on_submit() {
+            let value = document.getElementById('search-textbox').value;
+            let endpoint = '/title/';
+            if (value[0]==='@') {
+                endpoint = '/user/';
+                value = value.replace('@', '')
+            } else if (value[0]==='#') {
+                endpoint = '/entry/'
+                value = value.replace('#', '')
+            }
+            window.location.href = endpoint+value;
+            return false;
+        }
+    </script>
+
+
+
+</head>
+<body xmlns:xlink="http://www.w3.org/1999/xlink" itemscope="" itemtype="http://schema.org/WebPage">
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+
+    <symbol id="dic-me" viewBox="0 0 512 512">
+        <path d="m427 478c0-94-77-171-171-171-94 0-171 77-171 171l0 34-34 0 0-34c0-84 52-160 130-191-61-34-91-105-74-172 18-68 79-115 149-115 70 0 131 47 149 115 17 67-13 138-74 172 78 31 130 107 130 191l0 34-34 0z m-52-324c0-66-53-120-119-120-66 0-119 54-119 120 0 66 53 119 119 119 66 0 119-53 119-119z"></path>
+    </symbol>
+
+    <symbol id="dic-dots" viewBox="0 0 512 512">
+        <path d="m64 192c-34 0-64 30-64 64 0 34 30 64 64 64 34 0 64-30 64-64 0-34-30-64-64-64z m384 0c-34 0-64 30-64 64 0 34 30 64 64 64 34 0 64-30 64-64 0-34-30-64-64-64z m-192 0c-34 0-64 30-64 64 0 34 30 64 64 64 34 0 64-30 64-64 0-34-30-64-64-64z"></path>
+    </symbol>
+
+    <symbol id="dic-drop" viewBox="0 0 512 512">
+            <path d="m256 495c-96 0-171-75-171-171 0-92 171-307 171-307 0 0 171 215 171 307 0 92-75 171-171 171z"></path>
+    </symbol>
+
+    <symbol id="dic-icon-facebook" viewBox="0 0 512 512">
+        <path d="m292 503l0-226 77 0 13-89-85 0 0-56c0-25 8-42 42-42l47 0 0-77c-13 0-38-4-72-4-64 0-111 42-111 115l0 64-77 0 0 89 77 0 0 226z"></path>
+    </symbol>
+
+    <symbol id="dic-chevron-left" viewBox="0 0 512 512">
+        <path d="m381 62l-211 194 213 194c8 8 8 19 0 26-7 8-19 8-26 0l-224-205c-2 0-2 0-4-2-8-7-8-19 0-26 2 0 2-2 4-2l224-205c7-8 19-8 26 0 6 7 6 18-2 26z"></path>
+    </symbol>
+
+    <symbol id="dic-message" viewBox="0 0 512 512">
+        <path d="m416 384l0 128-128-128-192 0c-53 0-96-27-96-80l0-208c0-53 43-96 96-96l320 0c53 0 96 43 96 96l0 208c0 53-43 80-96 80z m64-288c0-35-29-64-64-64l-320 0c-35 0-64 29-64 64l0 208c0 35 29 48 64 48l208 0 80 80 0-80 32 0c35 0 64-13 64-48z"></path>
+    </symbol>
+
+    <symbol id="dic-events" viewBox="0 0 512 512">
+        <path d="m267 420c-8 0-14-8-14-13l-46-240-45 178c0 5-6 11-11 11l-132 0c-8 0-14-6-14-14 0-8 6-13 14-13l121 0 57-227c2-8 5-10 13-10 6 0 11 2 14 10l45 248 44-151c2-5 8-10 13-10 5 0 11 5 14 10l26 127 127 0c8 0 14 5 14 14 0 8-6 13-14 13l-137 0c-6 0-11-5-14-11l-19-83-43 148c0 8-8 13-13 13z"></path>
+    </symbol>
+
+
+    <symbol id="dic-chevron-right" viewBox="0 0 512 512">
+        <path d="m387 256c0 6-2 9-6 13 0 0-2 0-4 2l-222 204c-7 7-19 7-24 0-8-8-8-19 0-25l211-194-211-192c-8-8-8-19 0-27 7-7 18-7 24 0l222 204c2 0 2 0 4 2 4 4 6 9 6 13z"></path>
+    </symbol>
+
+    <symbol id="dic-search" viewBox="0 0 512 512">
+        <path d="m507 507c-2 3-6 5-10 5-4 0-8-2-11-5l-143-142c-74 63-182 66-259 7-78-59-104-164-63-252 41-88 138-136 233-115 95 21 162 106 162 203 0 50-18 98-51 135l142 143c6 6 6 15 0 21z m-123-299c0-97-79-176-176-176-97 0-176 79-176 176 0 97 79 176 176 176 97 0 176-79 176-176z"></path>
+    </symbol>
+
+    <symbol id="dic-icon-twitter" viewBox="0 0 512 512">
+        <path d="m510 91c-18 7-40 14-58 18 22-14 40-36 47-62-22 15-44 22-65 26-18-22-47-36-76-36-62 3-109 54-109 112 0 7 0 18 3 25-83-3-163-47-214-116-10 18-14 37-14 58 0 37 18 69 47 91-18 0-33-7-47-14 0 50 33 94 83 108-11 4-18 4-29 4-7 0-14 0-18-4 11 47 51 77 98 80-36 29-83 47-130 47-8 0-19 0-26-3 47 32 102 50 160 50 192 0 297-166 297-311 0-4 0-11 0-15 18-18 36-36 51-58z"></path>
+    </symbol>
+
+    <symbol id="dic-chevron-up" viewBox="0 0 512 512">
+        <path d="m496 393c-9 8-21 8-27 0l-213-231-213 231c-8 8-20 8-27 0-8-8-8-20 0-26l224-246c0-2 0-2 2-4 8-8 20-8 28 0 0 2 2 2 2 4l224 244c8 8 8 20 0 28z"></path>
+    </symbol>
+
+    <symbol id="dic-chevron-down" viewBox="0 0 512 512">
+        <path d="m482 153l-211 229c0 2 0 2-1 4-8 8-20 8-28 0 0-2 0-2-1-4l-211-229c-8-8-8-20 0-25 8-8 19-8 25 0l201 218 201-220c8-8 19-6 25 0 8 9 8 19 0 27z"></path>
+    </symbol>
+
+    <symbol id="dic-chevron-down-thick" viewBox="0 0 512 512">
+        <path d="m492 108c-15-15-43-12-55 4l-177 213-185-209c-16-16-40-20-55-4-16 12-20 40-4 55l197 225c31 31 63 27 94 0l189-225c16-15 16-43-4-59z"></path>
+    </symbol>
+
+    <symbol id="dic-chevron-up-thick" viewBox="0 0 512 512">
+        <path d="m496 341l-189-225c-31-27-63-27-94 0l-197 225c-16 15-12 43 4 55 15 16 39 12 55-4l185-209 177 209c16 16 40 20 55 4 20-12 20-40 4-55z"></path>
+    </symbol>
+
+    <symbol id="dic-message-filled" viewBox="0 0 512 512">
+        <path d="m416 384l0 128-128-128-192 0c-53 0-96-27-96-80l0-208c0-53 43-96 96-96l320 0c53 0 96 43 96 96l0 208c0 53-43 80-96 80z"></path>
+    </symbol>
+
+</svg>
+<header itemscope itemtype="http://schema.org/WPHeader">
+    <div id="top-bar" class="loggedin">
+        <div id="logo">
+            <a tabindex="-1" href="/">
+                eksiclone
+            </a>
+        </div>
+        <form action="/" method="post" id="search-form" class="inline" role="search">
+            <input name="searchkeywords" type="text" placeholder="title, #entry or @author" id="search-textbox" accesskey="s" maxlength="50" required/>
+            <span class="spin">↻</span>
+            <button type="submit" onclick="return _on_submit();">
+                <svg class="dic">
+                    <use xlink:href="#dic-search"></use>
+                </svg>
+            </button>
+        </form>
+        <div id="auto-complete-result" style="display: none"></div>
+        <nav id="top-navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+            {% if user.is_authenticated %}
+            <ul>
+                <li class="not-mobile">
+                    <a href="whatever" title="user title">
+                        <svg class="dic">
+                            <use xlink:href="#dic-me"></use>
+                        </svg>
+                        profile
+                    </a>
+                </li>
+                <li class="messages not-mobile">
+                    <a href="">
+                        <svg class="dic">
+                            <use xlink:href="#dic-message"></use>
+                        </svg>
+                        message
+                    </a>
+                </li>
+                <li class="tracked not-mobile">
+                    <a href=""
+                       title="thing-y things"
+                       class="new-update">
+                        <svg class="dic">
+                            <use xlink:href="#dic-events"></use>
+                        </svg>
+                        things
+                    </a>
+                </li>
+                <li id="options-dropdown" class="dropdown">
+                    <a class="dropdown-toggle" title="options">
+                        <svg class="dic">
+                            <use xlink:href="#dic-dots"></use>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="not-mobile"><a href="">tags</a></li>
+                        <li><a href="{% url 'preferences' %}">preferences</a></li>
+                        {% if user.lights %}
+                        <li><a class="display-preference" href="{% url 'lights'%}" title="light mode">switch to the dark side</a></li>
+                        {% else %}
+                        <li><a class="display-preference" href="{% url 'lights'%}" title="dark mode">turn the lights on</a></li>
+                        {% endif %}
+                        <li><a href="">buddies</a></li>
+                        <li class="separated"><a href="{% url 'logout' %}">logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% else %}
+            <ul>
+                <li>
+                    <a href="{% url 'login' %}" id="top-login-link">
+                        log in
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'register' %}">
+                        register
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </nav>
+        <div style="clear: both;"></div>
+        <nav id="sub-navigation" class="loggedin">
+            <ul id="quick-index-nav">
+                <li><a id="todayajax" title="dummy hover">today</a></li>
+                <li><a id="popularajax" title="dummy hover">popular</a></li>
+                <li><a id="hotajax" title="dummy hover">hot</a></li>
+                {%for channel in main_channels%}
+                    <li><a title="{{channel.description}}">#{{channel}}</a></li>
+                {%endfor%}
+                <li class="dropdown">
+                    <a class="dropdown-toggle" title="kanallar">
+                        <svg class="dic">
+                            <use xlink:href="#dic-dots"></use>
+                        </svg>
+                    </a>
+                    <ul id="dropdownindex" class="dropdown-menu tall-dropdown">
+                        {%for channel in dropdown_channels%}
+                            <li><a class="index-link" title="{{channel.description}}">#{{channel}}</a></li>
+                        {%endfor%}
+                        <li><a class="index-link" href="" title="dummy hover">rules</a></li>
+                        <li class="separated"><a href="" title="dummy hover">announcements</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <a href="" class="dictionary-logo">
+            eksiclone
+        </a>
+        <a href="https://seyler.eksisozluk.com" class="dictionary-logo-large-devices">
+        </a>
+    </div>
+</header>
+<div id="container">
+    <div id="index-section" class="robots-nocontent">
+        <nav id="partial-index" itemscope itemtype="http://schema.org/SiteNavigationElement">
+            <div class="clearfix dropdown ">
+                <h2>{{index_name}}</h2>
+            </div>
+            <div id="feed-info">
+                <a id="feed-refresh-link" class="more-data">
+                    refresh
+                </a>
+            </div>
+            {%if all_titles%}
+            <ul id="ajax-index" class="topic-list partial">
+                {% for title in all_titles %}
+                <li><a href="{%url 'title' title_text=title.url%}" draggable="true">{{title.text}}<small>0</small></a></li>
+                {% endfor %}
+            </ul>
+            {%else%}
+            <ul id="ajax-index" class="topic-list partial">
+                <li><a draggable="true">{{empty_title_list}}<small></small></a></li>
+            </ul>
+            {%endif%}
+            <div class="quick-index-continue-link-container"><a class="index-link" href="" id="quick-index-continue-link">more</a></div>
+        </nav>
+    </div>
+    <div id="main">
+        {% block content %}
+        {% endblock %}
+        <footer id="site-footer">
+            <ul>
+                <li><a href="" rel="help">faqs</a></li>
+                <li><a class="index-link" href="">statistics</a></li>
+                <li><a href="">something</a></li>
+                <li><a href="">something</a></li>
+                <li><a href="" rel="noopener" target="_blank">twitter</a></li>
+                <li><a href="" rel="noopener" target="_blank">facebook</a></li>
+            </ul>
+        </footer>
+    </div>
+</div>
+</body>
+</html>
