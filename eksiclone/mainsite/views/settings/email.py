@@ -5,11 +5,10 @@ from django.views.generic import FormView
 from mainsite.urls import url
 from mainsite.views.forms.email_form import EmailForm
 from utils.debug import debug
-from utils.decorators import confirm_origin, template_switch
+from utils.decorators import confirm_origin
 
 
 @debug
-@template_switch
 @url(r'settings/email', name='email')
 @confirm_origin()
 class Email(FormView, LoginRequiredMixin):

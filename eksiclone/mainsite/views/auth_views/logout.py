@@ -6,11 +6,10 @@ from mainsite.views.view_mixins import (
     PaginatorMixin,
 )
 from utils.debug import debug
-from utils.decorators import confirm_origin, template_switch
+from utils.decorators import confirm_origin
 
 
 @debug
-@template_switch
 @url(r'auth/logout', name='logout')
 @confirm_origin()
 class LogoutPage(LogoutView, PaginatorMixin):

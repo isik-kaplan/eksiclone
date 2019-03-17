@@ -3,12 +3,7 @@ import string
 
 import faker
 
-fake = faker.Faker()
-
 from eksiclone.wsgi import application
-
-print(application)
-
 from mainsite.app_models import (
     User,
     Title,
@@ -17,7 +12,11 @@ from mainsite.app_models import (
     UserTrophy
 )
 
+fake = faker.Faker()
+
 a = Title, TitleChannel, Entry
+
+print(application)
 
 
 def random_object(related, is_foeignkey=True):

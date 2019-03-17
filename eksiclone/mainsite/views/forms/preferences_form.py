@@ -1,8 +1,7 @@
 from django import forms
 
-from mainsite.app_models.users import User
 from mainsite.app_models.themes import Theme
-
+from mainsite.app_models.users import User
 from utils.decorators import suppress_and_return
 
 

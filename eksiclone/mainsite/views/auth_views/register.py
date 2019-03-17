@@ -8,15 +8,14 @@ from mainsite.views.view_mixins import (
     PaginatorMixin,
 )
 from utils.debug import debug
-from utils.decorators import confirm_origin, template_switch
+from utils.decorators import confirm_origin
 
 
 @debug
-@template_switch
 @url(r'auth/register', name='register')
 @confirm_origin()
 class RegisterPage(CreateView, PaginatorMixin):
-    _template_name = 'mainsite/auth/register/register.html'
+    template_name = 'mainsite/auth/register/register.html'
     form_class = RegisterForm
     success_url = reverse_lazy('login')  # patch the django.urls.reverse
 

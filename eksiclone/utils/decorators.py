@@ -44,28 +44,9 @@ def class_context_manager(**context):
         cls.get_context_data = context_manager(**context)(
             cls.get_context_data
         )
-        return template_switch(cls)
+        return cls
 
     return decorator
-
-
-def template_switch(cls):
-    anonymous = '_anonymous.html'
-    authenticated = '_authenticated.html'
-
-    def get_template_names(self):
-        if not hasattr(self, '_template_name'):
-            template = self.template_name
-        else:
-            template = self._template_name[:-5]
-            if self.request.user.is_authenticated:
-                template = template + authenticated
-            else:
-                template = template + anonymous
-        return [template]
-
-    cls.get_template_names = get_template_names
-    return cls
 
 
 def order_by(*args, default):

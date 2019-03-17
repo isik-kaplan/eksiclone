@@ -9,15 +9,14 @@ from mainsite.views.view_mixins import (
     PaginatorMixin,
 )
 from utils.debug import debug
-from utils.decorators import order_by, suppress_and_return, confirm_origin, template_switch
+from utils.decorators import order_by, suppress_and_return, confirm_origin
 
 
 @debug
-@template_switch
 @url(r'^user/(?P<user>[a-zA-Z0-9-]+)/$', name='profile')
 @confirm_origin()
 class ProfilePage(ListView, UrlMixin, PaginatorMixin):
-    _template_name = 'mainsite/profile/profile.html'
+    template_name = 'mainsite/profile/profile.html'
     context_object_name = 'entries'
 
     @suppress_and_return(User.DoesNotExist, instead=User.objects.none())

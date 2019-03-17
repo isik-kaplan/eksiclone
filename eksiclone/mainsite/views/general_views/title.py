@@ -12,15 +12,14 @@ from mainsite.views.view_mixins import (
     PaginatorMixin,
 )
 from utils.debug import debug
-from utils.decorators import order_by, suppress_and_return, confirm_origin, template_switch
+from utils.decorators import order_by, suppress_and_return, confirm_origin
 
 
 @debug
-@template_switch
 @url(r'^title/(?P<title_text>[a-zA-Z0-9-]+)/$', name='title')
 @confirm_origin()
 class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
-    _template_name = 'mainsite/title/title_page.html'
+    template_name = 'mainsite/title/title_page.html'
     context_object_name = 'entries'
     form_class = EntryCreateForm
     success_url = '#'
@@ -61,4 +60,3 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
             'allowed_to_write': getattr(self.request.user, 'is_author', False),
         }
         return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}
-

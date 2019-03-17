@@ -5,11 +5,10 @@ from django.views.generic import FormView
 from mainsite.urls import url
 from mainsite.views.forms.delete_account_form import DeleteAccountForm
 from utils.debug import debug
-from utils.decorators import confirm_origin, template_switch
+from utils.decorators import confirm_origin
 
 
 @debug
-@template_switch
 @url(r'settings/delete_account', name='delete_account')
 @confirm_origin()
 class DeleteAccount(FormView, LoginRequiredMixin):

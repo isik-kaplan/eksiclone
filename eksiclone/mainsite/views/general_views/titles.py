@@ -10,14 +10,13 @@ from mainsite.views.view_mixins import (
     PaginatorMixin,
 )
 from utils.debug import debug
-from utils.decorators import suppress_and_return, template_switch
+from utils.decorators import suppress_and_return
 
 
 @debug
-@template_switch
 @url(r'titles/(?P<channel>[a-zA-Z0-9-]+)', name='titles')
 class TitlesPage(ListView, UrlMixin, PaginatorMixin):
-    _template_name = 'mainsite/titles/titles.html'
+    template_name = 'mainsite/titles/titles.html'
     context_object_name = 'titles'
 
     @suppress_and_return(TitleChannel.DoesNotExist, instead=TitleChannel.objects.none())

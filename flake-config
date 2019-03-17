@@ -1,9 +1,10 @@
 [flake8]
+max-line-length = 120
 ignore =
-    # 120 chars is okay
-    E501
     # __init__ imports
     F401,
 exclude =
     templates
+    mainsite/apiviews
+    mainsite/migrations
 

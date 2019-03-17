@@ -10,15 +10,14 @@ from mainsite.views.view_mixins import (
     PaginatorMixin,
 )
 from utils.debug import debug
-from utils.decorators import order_by, suppress_and_raise, template_switch
+from utils.decorators import order_by, suppress_and_raise
 from utils.next_prev import lazy_next, lazy_prev
 
 
 @debug
-@template_switch
 @url(r'^entry/(?P<entry_pk>[0-9]+)/$', name='entry')
 class EntryPage(DetailView, UrlMixin, PaginatorMixin):
-    _template_name = 'mainsite/entry/entry.html'
+    template_name = 'mainsite/entry/entry.html'
     context_object_name = 'entry'
 
     def __init__(self, **kwargs):
