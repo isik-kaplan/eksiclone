@@ -1,11 +1,13 @@
 from django.db import models
 from simple_history.models import HistoricalRecords
+from utils.random_q.random_maanger import RandManager
 
 from utils.utils import unmake_url
 
 
 class CommonFields(models.Model):
     """@DynamicAttrs"""
+    objects = RandManager()
     creation_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     history = HistoricalRecords(inherit=True)
 
