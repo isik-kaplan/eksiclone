@@ -10,3 +10,7 @@ class Title(CommonFields):
     text = models.CharField(max_length=50, null=True, unique=True)
     channels = models.ManyToManyField('TitleChannel', related_name="titles")
     creator = models.ForeignKey('User', default=1, on_delete=models.SET_DEFAULT)
+
+    @property
+    def has_readable_entries(self):
+        return bool(self.entry_set.filter(readability=True).count())
