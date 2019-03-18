@@ -33,7 +33,11 @@
                                 <div class="info">
                                     <a data-id="{{entry.pk}}" title="report" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
                                     <a href="{%url 'entry' entry_pk=entry.pk%}{%if order == 'good'%}?order=good{%endif%}" class="entry-date permalink">{{entry.date}}</a>
-                                    <a class="entry-author" href="{%url 'title' title_text=entry.title.url %}">{{ entry.title }}</a>
+                                    {% if entries_of == 'user' %}
+                                    <a class="entry-author" href="{% url 'title' title_text=entry.title.url %}">{{ entry.title }}</a>
+                                    {% else %}
+                                    <a class="entry-author" href="{% url 'profile' user=entry.author.url %}">{{ entry.author }}</a>
+                                    {% endif %}
                                 </div>
                             </footer>
                         </li>
