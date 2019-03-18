@@ -4,6 +4,7 @@ from mainsite.app_models.titles import Title
 from mainsite.app_models.user_trophies import UserTrophy
 from mainsite.app_models.users import User
 from mainsite.app_models.themes import Theme
+from mainsite.app_models.events import Event
 
 __all__ = [
     Entry.__name__,

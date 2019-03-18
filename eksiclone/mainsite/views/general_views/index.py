@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
-from mainsite.app_models import Title
+from mainsite.app_models import Title, Event
 from mainsite.urls import url
 from utils.debug import debug
 
@@ -13,5 +13,6 @@ class IndexPage(TemplateView):
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
-            'random_titles': ((title, title.random_entry) for title in Title.objects.random(5))
+            'random_titles': ((title, title.random_entry) for title in Title.objects.random(5)),
+            'events': Event.objects.filter(active=True)
         }

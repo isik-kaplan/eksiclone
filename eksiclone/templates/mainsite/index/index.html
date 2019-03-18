@@ -40,7 +40,9 @@
                     <div id="topic-channels">
                         <h2 id="channels">Events</h2>
                         <ul>
-                            <li><a class="index-link" href="" title="dummy hover">No idea what to put here for now(index)</a></li>
+                            {% for event in events %}
+                            <li><a class="index-link" href="" title="{{ event.short_desc }}">event.name</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </section>
