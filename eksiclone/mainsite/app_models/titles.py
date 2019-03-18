@@ -12,5 +12,9 @@ class Title(CommonFields):
     creator = models.ForeignKey('User', default=1, on_delete=models.SET_DEFAULT)
 
     @property
+    def random_entry(self):
+        return self.entry_set.filter(readability=True).random().get()
+
+    @property
     def has_readable_entries(self):
         return bool(self.entry_set.filter(readability=True).count())

@@ -3,33 +3,42 @@
 {% block content %}
     <div id="content" class="instapaper_body" role="main">
             <section id="content-body">
+
+
+﻿
+
+
                 <div id="topic">
+                    {% for title, entry in random_titles %}
                     <h1 id="the_title">
-                        <a href="" itemprop="url">
-                            <span itemprop="name">Populate Index</span>
+                        <a href="{% url "title" title_text=title.url %}" itemprop="url">
+                            <span itemprop="name">{{title}}</span>
                         </a>
                     </h1>
-                    <div class="clearfix sub-title-container">
-                        <div class="sub-title-menu">
-                        </div>
-                        <div style='clear:both'></div>
-                    </div>
                     <ul id="entry-list">
                         <li>
                             <div class="content">
-                                Populate Index
+                                {{ entry.text|linebreaks }}
                             </div>
+                            <footer>
+                                {% include 'mainsite/children/feedback.html' %}
+                                <div class="info">
+                                    <a data-id="{{entry.pk}}" title="{% if entry.author == user %}delete{% else %}report{% endif %}" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
+                                    <a href="{% url 'entry' entry_pk=entry.pk %}" class="entry-date permalink">{{entry.date}}</a>
+                                    <a class="entry-author" href="{%url 'profile' user=entry.author %}">{{ entry.author }}</a>
+                                </div>
+                            </footer>
                         </li>
                     </ul>
+                    {% endfor %}
                     <div style='clear:both'></div>
-                    <div style="text-align:center">
-                    </div>
+                    <div style="text-align:center"></div>
                 </div>
             </section>
             <aside id="aside" style="margin-top: 10px">
                 <section id="topic-channel-info">
                     <div id="topic-channels">
-                        <h2 id="channels">no idea what to put here(index)</h2>
+                        <h2 id="channels">Events</h2>
                         <ul>
                             <li><a class="index-link" href="" title="dummy hover">No idea what to put here for now(index)</a></li>
                         </ul>
