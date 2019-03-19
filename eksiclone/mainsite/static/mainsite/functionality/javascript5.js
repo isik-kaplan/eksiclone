@@ -40,7 +40,8 @@ function indexajaxfunc(ajaxbutton) {
         getnew.onload = function () {
             let newtitlespagestring = getnew.responseText;
             let newtitlespage = parser.parseFromString(newtitlespagestring, "text/html");
-            let newtitles = newtitlespage.getElementById("content-body").children[1];
+            let newtitles = newtitlespage.getElementById("content-body").children[2];
+            console.log(newtitles);
             ajaxcurrent.children[0].children[0].innerHTML = newtitlespage.getElementById("content-body").children[0].innerHTML;
             while (ajaxindex.hasChildNodes()) {
                 ajaxindex.removeChild(ajaxindex.lastChild)
