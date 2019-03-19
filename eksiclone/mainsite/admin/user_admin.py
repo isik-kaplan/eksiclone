@@ -1,11 +1,13 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
 from mainsite.app_models import User
 from .base_admin import BaseAdmin
 
 
 @admin.register(User)
-class UserTrophyAdmin(BaseAdmin):
+class UserAdmin(BaseAdmin, UserAdmin):
+    fieldsets = None
     fields = [
         'last_login',
         'username',
