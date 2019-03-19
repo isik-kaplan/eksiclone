@@ -14,7 +14,7 @@
                     <h1>Delete account</h1>
                     <form action="" class="registration-form" id="register-form" method="POST">
                         {% csrf_token %}
-                        {{ form.errors }}
+                        {{ form.non_field_errors }}
                         <fieldset class="vertical">
                             <div>
                                 <label for="TopicPageSize">action</label>
