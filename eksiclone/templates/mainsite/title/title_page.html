@@ -48,9 +48,9 @@
                     <div class="entry-edit-form-container">
                         <form method="POST" class="editform" >
                             {% csrf_token %}
-                            {{ form.errors }}
                             <fieldset class="vertical">
                             <div class="edittools"></div>
+                                {{ form.non_field_errors }}
                                 <label>
                                     <input style="display: none" name="title" value="{{title_text}}">
                                 </label>
