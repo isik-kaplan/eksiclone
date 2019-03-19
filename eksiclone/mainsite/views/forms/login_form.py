@@ -7,7 +7,7 @@ from mainsite.app_models import User
 
 class EmailUsernameAuthForm(AuthenticationForm):
     def clean(self):
-        username = self.cleaned_data.get('username')
+        username = self.cleaned_data.get('username') or ''
 
         if '@' in username:
             try:
