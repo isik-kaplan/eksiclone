@@ -42,6 +42,10 @@ class User(AbstractUser, CommonFields):
         self.theme = self.theme.opposite()
         self.save()
 
+    @property
+    def has_unread_notifications(self):
+        return self.notification_set.count() > 0
+
     def update(self, **kw):
         for k, v in kw.items():
             setattr(self, k, v)

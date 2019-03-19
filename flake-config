@@ -1,5 +1,6 @@
 [flake8]
-max-line-length = 120
+# WHAT KIND OF A MONSTER AM I
+max-line-length = 500
 ignore =
     # __init__ imports
     F401,

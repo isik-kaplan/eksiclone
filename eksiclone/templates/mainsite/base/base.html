@@ -142,7 +142,7 @@
                 <li class="tracked not-mobile">
                     <a href=""
                        title="thing-y things"
-                       class="new-update">
+                       class="{% if request.user.is_authenticated and user.has_unread_notifications %} new-update {% endif %}">
                         <svg class="dic">
                             <use xlink:href="#dic-events"></use>
                         </svg>
