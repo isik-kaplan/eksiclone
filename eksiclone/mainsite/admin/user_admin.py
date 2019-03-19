@@ -16,6 +16,7 @@ class UserTrophyAdmin(BaseAdmin):
         'is_active',
         'date_joined',
         'is_author',
+        'is_confirmed',
     ]
 
     search_fields = [

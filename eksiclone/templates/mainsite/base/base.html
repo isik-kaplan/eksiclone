@@ -124,7 +124,7 @@
             {% if user.is_authenticated %}
             <ul>
                 <li class="not-mobile">
-                    <a href="whatever" title="user title">
+                    <a href="{% url 'profile' user=user.url %}" title="user title">
                         <svg class="dic">
                             <use xlink:href="#dic-me"></use>
                         </svg>
