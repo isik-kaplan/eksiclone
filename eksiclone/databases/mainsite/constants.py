@@ -3,9 +3,13 @@ from mainsite.app_models import (
     Title
 )
 
-GLOBAL_CONTEXT = {
+GLOBAL_DB_CONTEXT = {
     'main_channels': TitleChannel.objects.filter(is_main=True),
     'dropdown_channels': TitleChannel.objects.filter(is_main=False),
+}
+
+GLOBAL_CONTEXT = {
+
 }
 
 DEFAULT_FIELDS = (
