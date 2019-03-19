@@ -24,16 +24,16 @@ DEFAULT_CHANNEL_QUERIES = {
         ).order_by("num_entries"),
         'description': 'popular'
     },
-    'hot': {
-        'query': Title.objects.annotate(
-            num_entries=Count(
-                "entry", filter=Q(
-                    entry__date__gte=make_aware(
-                        datetime.datetime.today() - datetime.timedelta(days=7)
-                    )
-                )
-            )
-        ).filter(num_entries__gte=100).order_by('entry__date'),
-        'description': 'hot'
-    }
+    # 'hot': {
+    #     'query': Title.objects.annotate(
+    #         num_entries=Count(
+    #             "entry", filter=Q(
+    #                 entry__date__gte=make_aware(
+    #                     datetime.datetime.today() - datetime.timedelta(days=7)
+    #                 )
+    #             )
+    #         )
+    #     ).filter(num_entries__gte=100).order_by('entry__date'),
+    #     'description': 'hot'
+    # }
 }

@@ -10,7 +10,7 @@ GLOBAL_CONTEXT = {
 
 DEFAULT_FIELDS = (
     'today',
-    'hot',
+    # 'hot',
     'popular',
 )
 
