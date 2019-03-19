@@ -20,7 +20,11 @@
                             <footer>
                                 {% include 'mainsite/children/feedback.html' %}
                                 <div class="info">
-                                    <a data-id="{{entry.pk}}" title="{% if entry.author == user %}delete{% else %}report{% endif %}" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
+                                    {% if user.is_authenticated and entry.author == user %}
+                                    <a data-id="{{entry.pk}}" title="delete" class="entry-date permalink delete" style="background:none;border:none;margin:0;padding:0;">!</a>
+                                    {% else %}
+                                    <a data-id="{{entry.pk}}" title="report" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
+                                    {% endif %}
                                     <a href="{% url 'entry' entry_pk=entry.pk %}?entries_of=user" class="entry-date permalink">{{entry.date}}</a>
                                     <a class="entry-author" href="{%url 'title' title_text=entry.title.url %}">{{ entry.title }}</a>
                                 </div>

@@ -111,9 +111,9 @@ def fake_relations():
         entries_to_dislike = all_entries[0:random.randint(0, EC)]
         random.shuffle(all_entries)
         entries_to_fav = all_entries[0:random.randint(0, EC)]
-        user.likes.add(*entries_to_like)
         user.dislikes.add(*entries_to_dislike)
-        user.likes.remove(*entries_to_dislike)
+        user.likes.add(*entries_to_like)
+        user.dislikes.remove(*entries_to_like)
         user.favs.add(*entries_to_fav)
 
 

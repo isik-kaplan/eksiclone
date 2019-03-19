@@ -37,7 +37,7 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
         return kwargs
 
     @suppress_and_return(Title.DoesNotExist, instead=Title.objects.none())
-    @order_by('points', not_fields={'points': Count(F('likes'))}, default='date')
+    @order_by('points', not_fields={'points': Count(F('likes'), distinct=True) - Count(F('dislikes'), distinct=True)}, default='date')
     def get_queryset(self):
         title = Title.from_url(self.title_text)
         queryset = title.entry_set.filter(readability=True)

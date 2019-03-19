@@ -41,7 +41,6 @@ function indexajaxfunc(ajaxbutton) {
             let newtitlespagestring = getnew.responseText;
             let newtitlespage = parser.parseFromString(newtitlespagestring, "text/html");
             let newtitles = newtitlespage.getElementById("content-body").children[2];
-            console.log(newtitles);
             ajaxcurrent.children[0].children[0].innerHTML = newtitlespage.getElementById("content-body").children[0].innerHTML;
             while (ajaxindex.hasChildNodes()) {
                 ajaxindex.removeChild(ajaxindex.lastChild)
@@ -143,7 +142,11 @@ function ajaxreporthelper(x,y) {
             let e = document.createElement("a");
             e.classList.add("entry-date");
             e.classList.add("permalink");
-            e.innerHTML = "reported";
+            if (getnew.status === 404) {
+                e.innerHTML = "already reported"
+            } else {
+                e.innerHTML = "reported";
+            }
             x[y].parentElement.insertAdjacentElement('beforeend', e);
             x[y].removeEventListener("click", report);
         };
@@ -221,6 +224,7 @@ function ajaxfeedbackhelper(a,x,y,z) {
             }
         };
         }
+        console.log(x[z]);
         getnew.send(x[z].getAttribute("data-id"))
     }
     x[z].children[0].addEventListener("click", helpy);

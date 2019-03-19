@@ -8,15 +8,15 @@
         <use xlink:href="#dic-icon-twitter"></use>
     </svg></a>
 </span>
-    <span class="rate-options"><a class="like {% if user.is_authenticated and entry in user.likes.all %} voted {% endif %}" title="şükela!">
+    <span class="rate-options"><a data-id="{{ entry.pk }}" class="like {% if user.is_authenticated and entry in user.likes.all %} voted {% endif %}" title="şükela!">
     <svg class="dic" id="svg-chevron-up">
         <use xlink:href="#dic-chevron-up-thick"></use>
-    </svg></a><a class="dislike {% if user.is_authenticated and entry in user.dislikes.all %} voted {% endif %}" title="çok kötü"><svg class="dic" id="svg-chevron-down">
+    </svg></a><a data-id="{{ entry.pk }}" class="dislike {% if user.is_authenticated and entry in user.dislikes.all %} voted {% endif %}" title="çok kötü"><svg class="dic" id="svg-chevron-down">
         <use xlink:href="#dic-chevron-down-thick"></use>
     </svg></a>
 </span>
     <span class="favorite-links" style="">
-    <a class="favorite-link {% if user.is_authenticated and entry in user.favs.all %} voted {% endif %}" title="favorite">
+    <a data-id="{{ entry.pk }}" class="favorite-link {% if user.is_authenticated and entry in user.favs.all %} voted {% endif %}" title="favorite">
         <svg class="dic"><use xlink:href="#dic-drop"></use>
         </svg>
     </a>

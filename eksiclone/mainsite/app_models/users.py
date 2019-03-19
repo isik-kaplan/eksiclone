@@ -1,10 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Sum, F
 
 from mainsite.app_models.common import CommonFields
 from utils.model_decorators import slugify, represent
 from utils.utils import unmake_url
-from django.db.models import Sum, F
 
 
 @slugify('username', '-', '-')
@@ -19,6 +19,7 @@ class User(AbstractUser, CommonFields):
     entry_pref = models.IntegerField(default=10)
     title_pref = models.IntegerField(default=50)
     trophies = models.ManyToManyField('UserTrophy', blank=True, related_name="trophies")
+    reported = models.ManyToManyField('Entry', blank=True)
     is_confirmed = models.BooleanField(default=False)
     is_author = models.BooleanField(default=False)
     lights = models.BooleanField(default=True)
