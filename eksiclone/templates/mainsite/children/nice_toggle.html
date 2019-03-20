@@ -6,5 +6,5 @@ sort:&nbsp;
 <a href="?page={{page_obj.number}}&order=date" class="{% if order == 'date' %}nice-on {% endif %}">date</a>
 </span>
 <div>
-    <a title="notify on new entries">follow</a>
+    <a id="{{ followclass }}" title="notify on new entries">{% if user.is_authenticated and user_follows %}following{% else %}follow{% endif %}</a>
 </div>

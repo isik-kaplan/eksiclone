@@ -15,7 +15,7 @@ class Entry(CommonFields):
 
     @property
     def points(self):
-        return self.likes.count() - self.dislikes.count()
+        return self.likers.count() - self.dislikers.count()
 
     class Meta:
         verbose_name_plural = 'Entries'

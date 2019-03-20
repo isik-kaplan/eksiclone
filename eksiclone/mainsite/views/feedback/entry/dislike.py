@@ -1,6 +1,5 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from mainsite.app_models import Entry
@@ -8,8 +7,7 @@ from mainsite.urls import url
 
 
 @url('^feedback/dislike')
-class Dislike(View):
-    @method_decorator(login_required)
+class Dislike(LoginRequiredMixin, View):
     def post(self, request):
         entry = Entry.objects.get(pk=int(request.body))
         if request.user.dislikes.filter(pk=entry.pk).exists():

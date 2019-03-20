@@ -52,7 +52,7 @@ def class_context_manager(**context):
 def order_by(*args, not_fields=None, default):
     if not_fields is None:
         not_fields = {}
-    not_fields= {'_' + k: v for k, v in not_fields.items()}
+    not_fields = {'_' + k: v for k, v in not_fields.items()}
 
     def actual_decorator(f):
         @wraps(f)

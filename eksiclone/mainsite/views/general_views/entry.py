@@ -26,7 +26,7 @@ class EntryPage(DetailView, UrlMixin, PaginatorMixin):
         self.cached: Entry = None
         self.entries_of = None
 
-    @order_by('points', not_fields={'points': Count(F('likes'), distinct=True) - Count(F('dislikes'), distinct=True)}, default='date')
+    @order_by('points', not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)}, default='date')
     def _get_queryset(self):
         entry = Entry.objects.get(pk=self.entry_pk)
         self.entries_of = self.request.GET.get('entries_of', 'title')

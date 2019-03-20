@@ -21,7 +21,7 @@ class ProfilePage(ListView, UrlMixin, PaginatorMixin):
     context_object_name = 'entries'
 
     @suppress_and_return(User.DoesNotExist, instead=User.objects.none())
-    @order_by('points', not_fields={'points': Count(F('likes'), distinct=True) - Count(F('dislikes'), distinct=True)}, default='date')
+    @order_by('points', not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)}, default='date')
     def get_queryset(self):
         user = User.from_url(self.user)
         queryset = user.entry_set.filter(readability=True)
@@ -34,9 +34,12 @@ class ProfilePage(ListView, UrlMixin, PaginatorMixin):
         return _paginate_by
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        user = User.from_url(self.user)
         extra_context = {
-            'username': self.from_url(self.user),
+            'username': user.username,
             'order': getattr(self, '_order', None),
             'exist': getattr(self.request.user, 'is_author', False),
+            'followclass': 'followuser',
+            'user_follows': self.request.user.followed_users.filter(pk=user.pk).exists(),
         }
         return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}

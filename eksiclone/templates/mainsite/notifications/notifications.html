@@ -1,0 +1,56 @@
+{% extends 'mainsite/base/base.html' %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+<h1>notifications</h1>
+<ul class="tabs">
+    <li {% if new %}class="active"{% endif %}><a href="{% url 'notifications' ntfc='new' %}">unread</a></li>
+    <li {% if not new %}class="active"{% endif %}><a href="{% url 'notifications' ntfc='archive' %}">archive</a></li>
+</ul>
+
+<div id="message-thread-list-form">
+{% include 'mainsite/children/pager.html' %}
+<div style="clear:both"></div>
+<ul id="threads">
+        <li>
+          <article>
+            <a href="">
+              <h2>{% if not new %} Arhived {% else %} New {% endif %}</h2>
+              <p>Below are your notifications</p>
+            </a>
+          </article>
+        </li>
+    {%  for c_ntfc in notifications %}
+        <li>
+          <article>
+            <a href="">
+              <h2>{{ c_ntfc.name }}</h2>
+              <p>{{ c_ntfc.description }}</p>
+            </a>
+            <footer>
+              <div>
+                <a data-id="{{ c_ntfc.pk }}" class="ntfc_del">delete</a>
+                {% if not new %}
+                <a data-id="{{ c_ntfc.pk }}" class="ntfc_unread">mark unread</a>
+                {% else %}
+                <a data-id="{{ c_ntfc.pk }}" class="ntfc_arch">arhive</a>
+                {% endif %}
+              </div>
+              <time>{{ c_ntfc.creation_date }}</time>
+            </footer>
+          </article>
+        </li>
+    {% endfor %}
+</ul>
+
+
+
+﻿
+
+
+
+{% include 'mainsite/children/pager.html' %}
+<input id="p" name="p" type="hidden" value="">
+</div></section></div>
+{% endblock %}

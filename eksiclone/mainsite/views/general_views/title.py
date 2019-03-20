@@ -37,7 +37,7 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
         return kwargs
 
     @suppress_and_return(Title.DoesNotExist, instead=Title.objects.none())
-    @order_by('points', not_fields={'points': Count(F('likes'), distinct=True) - Count(F('dislikes'), distinct=True)}, default='date')
+    @order_by('points', not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)}, default='date')
     def get_queryset(self):
         title = Title.from_url(self.title_text)
         queryset = title.entry_set.filter(readability=True)
@@ -59,5 +59,7 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
             'title_text': self.from_url(self.title_text),
             'order': getattr(self, '_order', None),
             'allowed_to_write': getattr(self.request.user, 'is_author', False),
+            'followclass': 'followtitle',
+            'user_follows': self.request.user.followed_titles.filter(pk=title.pk).exists()
         }
         return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}

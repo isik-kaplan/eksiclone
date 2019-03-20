@@ -9,5 +9,7 @@
 - MISC
     Find a reason to live
     Remove the need to init for the urls
+    Create a site map in so that js doesn't need hardcoded urls
+    use light.standard.css as the base of dark.standard.css, currently they are not the same
 - Localization
     Start implementing il8n
