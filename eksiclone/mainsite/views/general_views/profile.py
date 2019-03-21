@@ -35,11 +35,16 @@ class ProfilePage(ListView, UrlMixin, PaginatorMixin):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         user = User.from_url(self.user)
+        _user = self.request.user
+        if _user.is_authenticated:
+            user_follows = _user.followed_titles.filter(pk=user.pk).exists()
+        else:
+            user_follows = False
         extra_context = {
             'username': user.username,
             'order': getattr(self, '_order', None),
             'exist': getattr(self.request.user, 'is_author', False),
             'followclass': 'followuser',
-            'user_follows': self.request.user.followed_users.filter(pk=user.pk).exists(),
+            'user_follows': user_follows
         }
         return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}

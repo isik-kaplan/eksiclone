@@ -54,12 +54,18 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
             title = Title.from_url(self.title_text)
         except Title.DoesNotExist:
             title = Title.objects.none()
+        user = self.request.user
+        if user.is_authenticated:
+            user_follows = user.followed_titles.filter(pk=title.pk).exists()
+        else:
+            user_follows = False
         extra_context = {
             'title': title,
             'title_text': self.from_url(self.title_text),
             'order': getattr(self, '_order', None),
             'allowed_to_write': getattr(self.request.user, 'is_author', False),
             'followclass': 'followtitle',
-            'user_follows': self.request.user.followed_titles.filter(pk=title.pk).exists()
+            'user_follows': user_follows
         }
+
         return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}
