@@ -3,8 +3,8 @@
 {% load mainsite_template_tags %}
 <html lang="en">
 <head>
-    <link rel="shortcut icon" type="image/x-icon" href="{%static 'mainsite/misc/favicon.ico' %}" />
-    <title>title</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'mainsite/misc/favicon.ico' %}" />
+    <title>EksiClone</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
 
     <link type="text/css" id="user-site-theme" rel="stylesheet" href="{% if user.is_authenticated %}{%static user.theme.path %}{% else %}{%static 'mainsite/style/light.standard.css' %}{% endif %}" />
