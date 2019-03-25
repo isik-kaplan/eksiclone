@@ -12,5 +12,7 @@
     Create a site map in so that js doesn't need hardcoded urls
     Use light.standard.css as the base of dark.standard.css, currently they are not the same
     Implement report dispatching system
+    Make Theme an app
+    Make Notification an app
 - Localization
     Start implementing il8n
