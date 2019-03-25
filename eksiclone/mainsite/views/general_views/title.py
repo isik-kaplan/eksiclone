@@ -55,7 +55,7 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
         except Title.DoesNotExist:
             title = Title.objects.none()
         user = self.request.user
-        if user.is_authenticated:
+        if user.is_authenticated and title:
             user_follows = user.followed_titles.filter(pk=title.pk).exists()
         else:
             user_follows = False
