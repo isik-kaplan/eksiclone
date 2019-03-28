@@ -5,7 +5,7 @@ from django.views.generic import DetailView
 from mainsite.app_models import (
     Entry
 )
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
@@ -16,7 +16,7 @@ from utils.next_prev import lazy_next, lazy_prev
 
 
 @debug
-@url(r'^entry/(?P<entry_pk>[0-9]+)/$', name='entry')
+@url.re_path(r'^entry/(?P<entry_pk>[0-9]+)/$', name='entry')
 class EntryPage(DetailView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/entry/entry.html'
     context_object_name = 'entry'

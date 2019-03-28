@@ -2,14 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView
 
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.forms.delete_account_form import DeleteAccountForm
 from utils.debug import debug
 from utils.decorators import confirm_origin
 
 
 @debug
-@url(r'settings/delete_account', name='delete_account')
+@url.re_path(r'settings/delete_account', name='delete_account')
 @confirm_origin()
 class DeleteAccount(FormView, LoginRequiredMixin):
     template_name = 'mainsite/settings/delete_account.html'

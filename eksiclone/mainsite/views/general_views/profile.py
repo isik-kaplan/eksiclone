@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from mainsite.app_models import (
     User
 )
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
@@ -14,7 +14,7 @@ from utils.decorators import order_by, suppress_and_return, confirm_origin
 
 
 @debug
-@url(r'^user/(?P<user>[a-zA-Z0-9-]+)/$', name='profile')
+@url.re_path(r'^user/(?P<user>[a-zA-Z0-9-]+)/$', name='profile')
 @confirm_origin()
 class ProfilePage(ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/profile/profile.html'

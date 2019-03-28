@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from django.views.generic import View
 
 from mainsite.app_models import Entry
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 
 
-@url('^feedback/fav')
+@url.re_path('^feedback/fav')
 class Favorite(LoginRequiredMixin, View):
     def post(self, request):
         entry = Entry.objects.get(pk=int(request.body))

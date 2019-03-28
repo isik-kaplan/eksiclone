@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
@@ -10,7 +10,7 @@ from utils.debug import debug
 
 
 @debug
-@url(r'^notifications/(?P<ntfc>[a-zA-Z]+)/$', name='notifications')
+@url.re_path(r'^notifications/(?P<ntfc>[a-zA-Z]+)/$', name='notifications')
 class Notifications(LoginRequiredMixin, ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/notifications/notifications.html'
     context_object_name = 'notifications'

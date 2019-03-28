@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from django.views.generic import View
 
 from mainsite.app_models import User, Title
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 
 
-@url('^notification/followtitle')
+@url.re_path('^notification/followtitle')
 class FollowTitle(LoginRequiredMixin, View):
     def post(self, request):
         body = request.body.decode("utf-8")
@@ -19,7 +19,7 @@ class FollowTitle(LoginRequiredMixin, View):
         return HttpResponse(status=200)
 
 
-@url('^notification/followuser')
+@url.re_path('^notification/followuser')
 class FollowUser(LoginRequiredMixin, View):
     def post(self, request):
         body = request.body.decode("utf-8")

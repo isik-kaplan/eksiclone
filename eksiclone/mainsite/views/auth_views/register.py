@@ -2,7 +2,7 @@ from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.forms.registration_form import RegisterForm
 from mainsite.views.view_mixins import (
     PaginatorMixin,
@@ -12,7 +12,7 @@ from utils.decorators import confirm_origin
 
 
 @debug
-@url(r'auth/register', name='register')
+@url.re_path(r'auth/register', name='register')
 @confirm_origin()
 class RegisterPage(CreateView, PaginatorMixin):
     template_name = 'mainsite/auth/register/register.html'

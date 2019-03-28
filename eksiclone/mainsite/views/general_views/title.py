@@ -5,7 +5,7 @@ from mainsite.app_models import (
     Title,
     Entry
 )
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.base_views import ListAndCreateView
 from mainsite.views.forms.entry_form import EntryCreateForm
 from mainsite.views.view_mixins import (
@@ -17,7 +17,7 @@ from utils.decorators import order_by, suppress_and_return, confirm_origin
 
 
 @debug
-@url(r'^title/(?P<title_text>[a-zA-Z0-9-]+)/$', name='title')
+@url.re_path(r'^title/(?P<title_text>[a-zA-Z0-9-]+)/$', name='title')
 @confirm_origin()
 class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/title/title_page.html'

@@ -6,7 +6,7 @@ from mainsite.app_models import (
 )
 
 from django.http.response import Http404
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
@@ -16,7 +16,7 @@ from utils.decorators import suppress_and_raise
 
 
 @debug
-@url(r'titles/(?P<channel>[a-zA-Z0-9-]+)', name='titles')
+@url.re_path(r'titles/(?P<channel>[a-zA-Z0-9-]+)', name='titles')
 class TitlesPage(ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/titles/titles.html'
     context_object_name = 'titles'

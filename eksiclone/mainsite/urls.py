@@ -1,3 +1,3 @@
-from utils.decorators import url_manager
+from django_urls import UrlManager
 
-url, urlpatterns = url_manager()
+mainsite_urls = UrlManager(views_root='mainsite.views')

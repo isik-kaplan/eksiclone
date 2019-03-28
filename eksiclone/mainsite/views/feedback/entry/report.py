@@ -2,11 +2,11 @@ from django.http import Http404, HttpResponse
 from django.views.generic import View
 
 from mainsite.app_models import Entry
-from mainsite.urls import url
+from mainsite.urls import mainsite_urls as url
 from utils.utils import get_client_ip
 
 
-@url('^feedback/report')
+@url.re_path('^feedback/report')
 class Report(View):
     def post(self, request):
         entry = Entry.objects.get(pk=int(request.body))

@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path, include
 
-from mainsite.urls import urlpatterns as mainurls
+from mainsite.urls import mainsite_urls
 
 urlpatterns = [
-    re_path(r'^', include(mainurls)),
+    re_path(r'^', include(mainsite_urls.url_patterns)),
     re_path('^admin/', admin.site.urls),
 ]
 
