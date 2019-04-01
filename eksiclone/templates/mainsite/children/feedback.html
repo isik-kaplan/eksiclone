@@ -1,23 +1,23 @@
 <div class="feedback">
 <span class="share-links"><a href="//facebook.com/current.entry.page" aria-label="facebook" title="facebook" class="svgico svgico-facebook">
-    <svg class="dic" id="svg-icon-facebook">
-        <use xlink:href="#dic-icon-facebook"></use>
+    <svg class="eksico" id="svg-icon-facebook">
+        <use xlink:href="#eksico-icon-facebook"></use>
     </svg></a>
         <a data-href="{{entry.sharetwitter}}" aria-label="twitter" title="twitter" class="svgico svgico-twitter">
-    <svg class="dic" id="svg-icon-twitter">
-        <use xlink:href="#dic-icon-twitter"></use>
+    <svg class="eksico" id="svg-icon-twitter">
+        <use xlink:href="#eksico-icon-twitter"></use>
     </svg></a>
 </span>
     <span class="rate-options"><a data-id="{{ entry.pk }}" class="like {% if user.is_authenticated and entry in user.likes.all %} voted {% endif %}" title="şükela!">
-    <svg class="dic" id="svg-chevron-up">
-        <use xlink:href="#dic-chevron-up-thick"></use>
-    </svg></a><a data-id="{{ entry.pk }}" class="dislike {% if user.is_authenticated and entry in user.dislikes.all %} voted {% endif %}" title="çok kötü"><svg class="dic" id="svg-chevron-down">
-        <use xlink:href="#dic-chevron-down-thick"></use>
+    <svg class="eksico" id="svg-chevron-up">
+        <use xlink:href="#eksico-chevron-up-thick"></use>
+    </svg></a><a data-id="{{ entry.pk }}" class="dislike {% if user.is_authenticated and entry in user.dislikes.all %} voted {% endif %}" title="çok kötü"><svg class="eksico" id="svg-chevron-down">
+        <use xlink:href="#eksico-chevron-down-thick"></use>
     </svg></a>
 </span>
     <span class="favorite-links" style="">
     <a data-id="{{ entry.pk }}" class="favorite-link {% if user.is_authenticated and entry in user.favs.all %} voted {% endif %}" title="favorite">
-        <svg class="dic"><use xlink:href="#dic-drop"></use>
+        <svg class="eksico"><use xlink:href="#eksico-drop"></use>
         </svg>
     </a>
 <a class="fav">{{entry.points}}</a>

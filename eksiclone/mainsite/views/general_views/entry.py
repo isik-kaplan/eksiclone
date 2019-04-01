@@ -44,6 +44,9 @@ class EntryPage(DetailView, UrlMixin, PaginatorMixin):
             'prev': lazy_prev(query_set, entry),
             'order': getattr(self, '_order', None),
             'entries_of': self.entries_of,
+            'belongs_to': 'title' if self.entries_of == 'user' else 'profile',
+            'belongs_to_related': 'title' if self.entries_of == 'user' else 'author',
+            'followclass': 'followtitle' if self.entries_of == 'title' else 'followuser',
         }
         return {**super().get_context_data(object_list=object_list, **kwargs), **extra_context}
 

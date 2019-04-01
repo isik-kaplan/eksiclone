@@ -1,69 +1,17 @@
 {% extends 'mainsite/base/base.html' %}
 
 {% block content %}
-    <div id="content" class="instapaper_body" role="main">
-            <section id="content-body">
-                <div id="topic">
-                    <h1 id="the_title">
-                        <a href="" itemprop="url">
-                            <span itemprop="name">{{username}}</span>
-                        </a>
-                    </h1>
-                    {% include 'mainsite/children/sortable_pager.html' %}
-                    <ul id="entry-list">
-                    {%if entries%}
-                        {% for entry in entries %}
-                        <li>
-                            <div class="content">
-                                {{ entry.text|linebreaks }}
-                            </div>
-                            <footer>
-                                {% include 'mainsite/children/feedback.html' %}
-                                <div class="info">
-                                    {% if user.is_authenticated and entry.author == user %}
-                                    <a data-id="{{entry.pk}}" title="delete" class="entry-date permalink delete" style="background:none;border:none;margin:0;padding:0;">!</a>
-                                    {% else %}
-                                    <a data-id="{{entry.pk}}" title="report" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
-                                    {% endif %}
-                                    <a href="{% url 'entry' entry_pk=entry.pk %}?entries_of=user" class="entry-date permalink">{{entry.date}}</a>
-                                    <a class="entry-author" href="{%url 'title' title_text=entry.title.url %}">{{ entry.title }}</a>
-                                </div>
-                            </footer>
-                        </li>
-                        {% endfor %}
-                    {%else%}
-                        <li>
-                            <div class="content">
-                                {{empty_title|safe}}
-                            </div>
-                        </li>
-                    {%endif%}
-                    </ul>
-                        {%if entries%}
-                        {% include 'mainsite/children/pager.html' %}
-                        {% endif %}
-                    <div style='clear:both'></div>
-                    <div style="text-align:center"></div>
-                </div>
-            </section>
-            <aside id="aside" style="margin-top: 10px">
-                <section id="topic-channel-info">
-                    <div id="topic-channels">
-                        <h2 id="channels">tags</h2>
-                        <ul>
-                        {%if entries%}
-                            {% for channel in title.channels.all %}
-                            <li><a class="index-link" title="{{channel.description}}">#{{ channel }}</a></li>
-                            {% endfor %}
-                        {%else%}
-                            <li><a class="index-link" href="whatever" title="Footloose Description">#footlose</a></li>
-                        {%endif%}
-                        </ul>
-                    </div>
-                </section>
-                <div id="sticky-anchor"></div>
-                <div id="sticky-criteo">
-                </div>
-            </aside>
-        </div>
+    {% include 'mainsite/children/title_template.html' with
+        the_title=username
+        is_title_page=False
+
+        entries_of="user"
+        belongs_to="title"
+        belongs_to_url_arg_value="title"
+
+        aside_check=user.trophies.all
+        aside_object=user.trophies.all
+        aside_hover_title_attr="description"
+        aside_default="No Trophy"
+    %}
 {% endblock %}

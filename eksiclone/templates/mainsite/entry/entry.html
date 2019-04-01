@@ -1,72 +1,117 @@
 {% extends 'mainsite/base/base.html' %}
 
-{% block content %}
+{% block content2 %}
     <div id="content" class="instapaper_body" role="main">
-            <section id="content-body">
-                <div id="topic">
-                    <h1 id="the_title">
-                        {% if entries_of == "user" %}
+        <section id="content-body">
+            <div id="topic">
+                <h1 id="the_title">
+                    {% if entries_of == "user" %}
                         <a href="{% url 'profile' user=entry.author.url %}" itemprop="url">
-                            <span itemprop="name">{{entry.author}}</span>
+                            <span itemprop="name">{{ entry.author }}</span>
                         </a>
-                        {% else %}
+                    {% else %}
                         <a href="{% url 'title' title_text=entry.title.url %}" itemprop="url">
-                            <span itemprop="name">{{entry.title}}</span>
+                            <span itemprop="name">{{ entry.title }}</span>
                         </a>
-                        {% endif %}
-                    </h1>
-                    <div class="clearfix sub-title-container">
-                        <div class="sub-title-menu">
+                    {% endif %}
+                </h1>
+                <div class="clearfix sub-title-container">
+                    <div class="sub-title-menu">
                         {% include 'mainsite/children/nice_toggle.html' %}
-                        </div>
                     </div>
-                    {% if prev.count > 0 %}
-                    <a href="{% url 'entry' entry_pk=prev.entry.pk %}?order={{order}}&entries_of={{entries_of}}" class="showall more-data" title="tümünü göster">{{prev.count}} more entry</a>
-                    {% endif %}
-                    <ul id="entry-list">
-                        <li>
-                            <div class="content">
-                                {{ entry.text|linebreaks }}
-                            </div>
-                            <footer>
-                                {% include 'mainsite/children/feedback.html' %}
-                                <div class="info">
-                                    {% if user.is_authenticated and entry.author == user %}
-                                    <a data-id="{{entry.pk}}" title="delete" class="entry-date permalink delete" style="background:none;border:none;margin:0;padding:0;">!</a>
-                                    {% else %}
-                                    <a data-id="{{entry.pk}}" title="report" class="entry-date permalink reportentry" style="background:none;border:none;margin:0;padding:0;">!</a>
-                                    {% endif %}
-                                    <a href="{%url 'entry' entry_pk=entry.pk%}{%if order == 'good'%}?order=good{%endif%}" class="entry-date permalink">{{entry.date}}</a>
-                                    {% if entries_of == 'user' %}
-                                    <a class="entry-author" href="{% url 'title' title_text=entry.title.url %}">{{ entry.title }}</a>
-                                    {% else %}
-                                    <a class="entry-author" href="{% url 'profile' user=entry.author.url %}">{{ entry.author }}</a>
-                                    {% endif %}
-                                </div>
-                            </footer>
-                        </li>
+                </div>
+                {% if prev.count > 0 %}
+                    <a href="{% url 'entry' entry_pk=prev.entry.pk %}?order={{ order }}&entries_of={{ entries_of }}"
+                       class="showall more-data" title="tümünü göster">{{ prev.count }} more entry</a>
+                {% endif %}
+                <ul id="entry-list">
+                    {% include 'mainsite/children/entry_template.html' with
+                    entries_of=entries_of
+                    belongs_to=belongs_to
+                    belongs_to_url_arg_value=belongs_to_related
+                    %}
+                </ul>
+                {% if next.count > 0 %}
+                    <a href="{% url 'entry' entry_pk=next.entry.pk %}?order={{ order }}&entries_of={{ entries_of }}"
+                       class="showall more-data" title="tümünü göster">{{ next.count }} more entry</a>
+                {% endif %}
+                <div style="text-align:center">
+                </div>
+            </div>
+        </section>
+        <aside id="aside" style="margin-top: 10px">
+            <section id="topic-channel-info">
+                <div id="topic-channels">
+                    <h2 id="channels">tags</h2>
+                    <ul>
+                        {% for channel in entry.title.channels.all %}
+                            <li><a class="index-link" title="{{ channel.description }}">#{{ channel }}</a></li>
+                        {% endfor %}
                     </ul>
-                    {% if next.count > 0 %}
-                    <a href="{% url 'entry' entry_pk=next.entry.pk %}?order={{order}}&entries_of={{entries_of}}" class="showall more-data" title="tümünü göster">{{next.count}} more entry</a>
-                    {% endif %}
-                    <div style="text-align:center">
-                    </div>
                 </div>
             </section>
-            <aside id="aside" style="margin-top: 10px">
-                <section id="topic-channel-info">
-                    <div id="topic-channels">
-                        <h2 id="channels">tags</h2>
-                        <ul>
-                            {% for channel in entry.title.channels.all %}
-                            <li><a class="index-link" title="{{channel.description}}">#{{ channel }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </section>
-                <div id="sticky-anchor"></div>
-                <div id="sticky-criteo">
-                </div>
-            </aside>
-        </div>
+            <div id="sticky-anchor"></div>
+            <div id="sticky-criteo">
+            </div>
+        </aside>
+    </div>
 {% endblock %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+        <section id="content-body">
+            <div id="topic">
+                <h1 id="the_title">
+                    {% if entries_of == "user" %}
+                        <a href="{% url 'profile' user=entry.author.url %}" itemprop="url">
+                            <span itemprop="name">{{ entry.author }}</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'title' title_text=entry.title.url %}" itemprop="url">
+                            <span itemprop="name">{{ entry.title }}</span>
+                        </a>
+                    {% endif %}
+                </h1>
+                <div class="clearfix sub-title-container">
+                    <div class="sub-title-menu">
+                        {% include 'mainsite/children/nice_toggle.html' %}
+                    </div>
+                </div>
+                {% if prev.count > 0 %}
+                    <a href="{% url 'entry' entry_pk=prev.entry.pk %}?order={{ order }}&entries_of={{ entries_of }}"
+                       class="showall more-data" title="tümünü göster">{{ prev.count }} more entry</a>
+                {% endif %}
+                <ul id="entry-item-list">
+                    {% include 'mainsite/children/entry_template.html' with
+                            entries_of="title"
+                            belongs_to=belongs_to
+                            belongs_to_url_arg_value=belongs_to_related
+                    %}
+                </ul>
+                {% if next.count > 0 %}
+                    <a href="{% url 'entry' entry_pk=next.entry.pk %}?order={{ order }}&entries_of={{ entries_of }}"
+                       class="showall more-data" title="tümünü göster">{{ next.count }} more entry</a>
+                {% endif %}
+                <div style="text-align:center">
+                </div>
+            </div>
+        </section>
+        <aside id="aside" style="margin-top: 10px">
+            <section id="topic-channel-info" class="highlighted-box">
+                <div id="topic-channels" data-url="/kanal/baslik/5990434">
+
+                    <h2 id="channels">başlığın kanalları</h2>
+                    <ul>
+                        <li class="channel channel-siyaset"><a class="index-link" href="/basliklar/kanal/siyaset"
+                                                               title="partiler, politikacılar, terör, savaş kan ve korku">#siyaset</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section id="hidden-channels" style="display:none">
+                siyaset
+            </section>
+        </aside>
+    </div>
+{% endblock %}
+

@@ -128,13 +128,11 @@ function ajaxdelhelper(x, y) {
         getnew.open("POST", sitename + dellink);
         getnew.setRequestHeader('X-CSRFToken', cookies['csrftoken']);
         getnew.onload = function () {
-            let t = x[y].parentElement.parentElement.parentElement.children[0].children[0];
-            if (t.tagName === "P") {
-                let wrapper = document.createElement('strike');
-                wrapper.appendChild(t.cloneNode(true));
-                t.parentNode.replaceChild(wrapper, t);
+            let t = x[y].parentElement.parentElement.parentElement.children[0];
+            if (t.style.textDecoration === 'line-through') {
+                t.style.textDecoration ='';
             } else {
-                t.replaceWith(t.cloneNode(true).firstChild)
+                t.style.textDecoration ='line-through';
             }
 
         };
