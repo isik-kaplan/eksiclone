@@ -1,0 +1,50 @@
+{% extends 'mainsite/base/base.html' %}
+{% load mainsite_template_tags %}
+
+{% block content %}
+    <div id="content" class="instapaper_body" role="main">
+            <section id="content-body">
+<h1>notifications</h1>
+<ul class="tabs">
+    <li class="active"><a href="#">unread</a></li>
+</ul>
+
+<div id="message-thread-list-form">
+{% include 'mainsite/children/pager.html' %}
+<div style="clear:both"></div>
+<ul id="threads">
+    {% if not dialogs %}
+        <li>
+          <article>
+            <a href="">
+              <h2>{% if not new %} Arhived {% else %} New {% endif %}</h2>
+              <p>You don't seem to have any messages</p>
+            </a>
+          </article>
+        </li>
+    {% endif %}
+    {%  for dialog in dialogs %}
+        <li>
+          <article>
+            <a href="{% url "message" username=dialog|dialog_other:request.user %}">
+              <h2>{{ dialog.owner }} to {{ dialog.opponent }}</h2>
+              <p>{{ dialog.messages.last.text }}</p>
+            </a>
+            <footer>
+              <time>{{ messager.messages.last.get_formatted_create_datetime }}</time>
+            </footer>
+          </article>
+        </li>
+    {% endfor %}
+</ul>
+
+
+
+﻿
+
+
+
+{% include 'mainsite/children/pager.html' %}
+<input id="p" name="p" type="hidden" value="">
+</div></section></div>
+{% endblock %}

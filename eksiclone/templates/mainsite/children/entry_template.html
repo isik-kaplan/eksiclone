@@ -1,0 +1,32 @@
+{% load getattributes %}
+
+<li>
+    <div class="content">{{ entry.text }}</div>
+    <footer>
+        {% include "mainsite/children/feedback.html" %}
+        <div class="info">
+            {% if user.is_authenticated and entry.author == user %}
+                <a data-id="{{ entry.pk }}" title="delete"
+                   class="entry-date permalink delete"
+                   style="background:none;border:none;margin:0;padding:0;">!</a>
+            {% else %}
+                <a data-id="{{ entry.pk }}" title="report"
+                   class="entry-date permalink reportentry"
+                   style="background:none;border:none;margin:0;padding:0;">!</a>
+            {% endif %}
+            <a href="{% url 'entry' entry_pk=entry.pk %}?entries_of={{ entries_of }}"
+               class="entry-date permalink">{{ entry.date }}</a>
+            <a class="entry-author"
+                    {% with belongs_to_manager=entry|getattribute:belongs_to_url_arg_value %}
+               href="{% url belongs_to belongs_to_manager.url %}">
+                        {{ belongs_to_manager }}
+                    {% endwith %}
+
+            </a>
+        </div>
+    </footer>
+    <div class="comment-summary">
+        <div class="comment-pages">
+        </div>
+    </div>
+</li>

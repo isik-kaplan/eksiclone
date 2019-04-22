@@ -1,0 +1,18 @@
+{% load getattributes %}
+
+<aside id="aside" style="margin-top: 10px">
+            <section id="topic-channel-info" class="highlighted-box">
+                <div id="topic-channels">
+                    <h2 id="channels">tags</h2>
+                    <ul>
+                        {% if aside_check %}
+                            {% for obj in aside_objects %}
+                                <li><a class="index-link" title="{{ obj|getattribute:aside_hover_title_attr }}">#{{ obj }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <li><a class="index-link" href="whatever" title="Footloose Description">{{ aside_default }}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </section>
+        </aside>
