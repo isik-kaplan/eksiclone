@@ -9,4 +9,3 @@ class MainsiteConfig(AppConfig):
 
     def ready(self):
         glob_init('mainsite.app_models.signals', path='**', recursive=True)
-        init('mainsite.views')

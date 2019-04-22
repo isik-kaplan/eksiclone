@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     # top 3rd party
     'whitenoise.runserver_nostatic',
+
     # custom
     'mainsite.apps.MainsiteConfig',
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party
+    'django_private_chat',
     'django_hosts',
     'rest_framework',
     'simple_history',
@@ -169,3 +171,9 @@ LOGOUT_REDIRECT_URL = '/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WHITENOISE_AUTOREFRESH = True  # change on production
+
+# Private Messages
+
+CHAT_WS_SERVER_HOST = 'localhost'
+CHAT_WS_SERVER_PORT = 5002
+CHAT_WS_SERVER_PROTOCOL = 'ws'

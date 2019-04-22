@@ -9,6 +9,7 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
 
     <link type="text/css" id="user-site-theme" rel="stylesheet" href="
+
             {% if user.is_authenticated %}{% static user.theme.path %}{% else %}{% static 'mainsite/style/light.standard.css' %}{% endif %}"
     />
 
@@ -28,7 +29,7 @@
                 endpoint = '/user/';
                 value = value.replace('@', '')
             } else if (value[0] === '#') {
-                endpoint = '/entry/'
+                endpoint = '/entry/';
                 value = value.replace('#', '')
             }
             window.location.href = endpoint + value;
@@ -36,6 +37,7 @@
         }
     </script>
 
+    {% block extra_js %}{% endblock extra_js %}
 
 </head>
 <body xmlns:xlink="http://www.w3.org/1999/xlink" itemscope="" itemtype="http://schema.org/WebPage">
@@ -134,7 +136,8 @@
                         </a>
                     </li>
                     <li class="messages not-mobile">
-                        <a href="">
+                        <a href="{% url "messages" %}"
+                            class="{% if hser.has_unread_messages %} new-update {% endif %}">
                             <svg class="eksico">
                                 <use xlink:href="#eksico-message"></use>
                             </svg>

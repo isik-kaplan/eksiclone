@@ -14,7 +14,7 @@ def context_from_request(request):
     return {
         'index': _get_index_from_request(request),
         'all_titles': _get_all_titles_from_request(request),
-        'user': request.user
+        'user': request.user,
     }
 
 

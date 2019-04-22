@@ -13,14 +13,16 @@
 {% include 'mainsite/children/pager.html' %}
 <div style="clear:both"></div>
 <ul id="threads">
+    {% if not notifications %}
         <li>
           <article>
             <a href="">
               <h2>{% if not new %} Arhived {% else %} New {% endif %}</h2>
-              <p>Below are your notifications</p>
+              <p>You don't seem to have any notifications</p>
             </a>
           </article>
         </li>
+    {% endif %}
     {%  for c_ntfc in notifications %}
         <li>
           <article>

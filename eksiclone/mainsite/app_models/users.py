@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import Count, F
+from django.db.models import Count, F, Q
+from django_private_chat.models import Message
 
 from mainsite.app_models.common import CommonFields
 from utils.model_decorators import slugify, represent
@@ -47,6 +48,10 @@ class User(AbstractUser, CommonFields):
     @property
     def has_unread_notifications(self):
         return self.notification_set.filter(read=False).count() > 0
+
+    @property
+    def has_unread_messages(self):
+        return Message.objects.filter(Q(owner=self) | Q(opponent=self), read=False).exists()
 
     def update(self, **kw):
         for k, v in kw.items():
