@@ -1,6 +1,6 @@
 import datetime
 
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Max, Case, When, BooleanField
 from django.utils.timezone import make_aware
 
 from mainsite.app_models import (
@@ -9,7 +9,9 @@ from mainsite.app_models import (
 
 DEFAULT_CHANNEL_QUERIES = {
     'today': {
-        'query': Title.objects.distinct('text').order_by('text', 'entry__date'),
+        'query': Title.objects.annotate(
+            last=Max('entry__date'), has_entry=Case(When(entry__readability=True, then=True), output_field=BooleanField())
+        ).filter(has_entry=True).order_by('-last'),
         'description': 'today',
     },
     'popular': {
