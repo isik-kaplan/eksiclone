@@ -9,19 +9,20 @@ from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
 )
-from utils.debug import debug
-from utils.decorators import order_by, suppress_and_return, confirm_origin
+from utils.decorators import order_by, suppress_and_return
 
 
-@debug
 @url.re_path(r'^user/(?P<user>[a-zA-Z0-9-]+)/$', name='profile')
-@confirm_origin()
 class ProfilePage(ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/profile/profile.html'
     context_object_name = 'entries'
 
     @suppress_and_return(User.DoesNotExist, instead=User.objects.none())
-    @order_by('points', not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)}, default='date')
+    @order_by(
+        'points',
+        not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)},
+        default='date'
+    )
     def get_queryset(self):
         user = User.from_url(self.user)
         queryset = user.entry_set.filter(readability=True)

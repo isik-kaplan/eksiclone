@@ -5,13 +5,9 @@ from django.views.generic import FormView
 from mainsite.app_models import Theme
 from mainsite.urls import mainsite_urls as url
 from mainsite.views.forms.preferences_form import PreferencesForm
-from utils.debug import debug
-from utils.decorators import confirm_origin
 
 
-@debug
 @url.re_path(r'settings/preferences', name='preferences')
-@confirm_origin()
 class Preferences(FormView, LoginRequiredMixin):
     template_name = 'mainsite/settings/preferences.html'
     form_class = PreferencesForm

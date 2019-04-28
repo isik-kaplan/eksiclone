@@ -101,23 +101,6 @@ def suppress_and_raise(*excs, instead):
     return actual_decorator
 
 
-def confirm_origin(origin=None):
-    def actual_decorator(cls):
-        def method(self):
-            nonlocal origin
-            referer = self.request.META.get('HTTP_REFERER') or ''
-            origin = origin or 'http://' + self.request.build_absolute_uri().split('//')[1].split('/')[0]
-            # this is supposed to be the base url, // TODO make it pretty
-            print(f'referer: {referer}\n' f'origin: {origin}')  # // TODO Log this instead of printing
-            return referer.startswith(origin)
-
-        method.__name__ = 'confirm_origin'
-        cls.confirm_origin = method
-        return cls
-
-    return actual_decorator
-
-
 __all__ = [
     class_context_manager,
     url_manager,

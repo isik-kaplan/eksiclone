@@ -4,13 +4,9 @@ from django.views.generic import FormView
 
 from mainsite.urls import mainsite_urls as url
 from mainsite.views.forms.email_form import EmailForm
-from utils.debug import debug
-from utils.decorators import confirm_origin
 
 
-@debug
 @url.re_path(r'settings/email', name='email')
-@confirm_origin()
 class Email(FormView, LoginRequiredMixin):
     template_name = 'mainsite/settings/email.html'
     form_class = EmailForm

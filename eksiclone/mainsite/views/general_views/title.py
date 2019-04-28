@@ -12,13 +12,10 @@ from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
 )
-from utils.debug import debug
-from utils.decorators import order_by, suppress_and_return, confirm_origin
+from utils.decorators import order_by, suppress_and_return
 
 
-@debug
 @url.re_path(r'^title/(?P<title_text>[a-zA-Z0-9-]+)/$', name='title')
-@confirm_origin()
 class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/title/title_page.html'
     context_object_name = 'entries'
@@ -37,7 +34,11 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
         return kwargs
 
     @suppress_and_return(Title.DoesNotExist, instead=Title.objects.none())
-    @order_by('points', not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)}, default='date')
+    @order_by(
+        'points',
+        not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)},
+        default='date'
+    )
     def get_queryset(self):
         title = Title.from_url(self.title_text)
         queryset = title.entry_set.filter(readability=True)

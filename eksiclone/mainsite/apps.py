@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-from utils.utils import glob_init, init
+from utils.utils import glob_init
 
 
 class MainsiteConfig(AppConfig):
