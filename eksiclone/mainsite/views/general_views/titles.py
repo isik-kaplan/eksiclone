@@ -11,11 +11,9 @@ from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
 )
-from utils.debug import debug
 from utils.decorators import suppress_and_raise
 
 
-@debug
 @url.re_path(r'titles/(?P<channel>[a-zA-Z0-9-]+)', name='titles')
 class TitlesPage(ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/titles/titles.html'

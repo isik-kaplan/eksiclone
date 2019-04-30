@@ -6,10 +6,8 @@ from mainsite.views.view_mixins import (
     UrlMixin,
     PaginatorMixin,
 )
-from utils.debug import debug
 
 
-@debug
 @url.re_path(r'^notifications/(?P<ntfc>[a-zA-Z]+)/$', name='notifications')
 class Notifications(LoginRequiredMixin, ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/notifications/notifications.html'
