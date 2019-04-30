@@ -4,10 +4,8 @@ from django.views.generic import TemplateView
 
 from mainsite.app_models import Title, Event
 from mainsite.urls import mainsite_urls as url
-from utils.debug import debug
 
 
-@debug
 @url.re_path(r'^$', name='index')
 class IndexPage(TemplateView):
     template_name = 'mainsite/index/index.html'
