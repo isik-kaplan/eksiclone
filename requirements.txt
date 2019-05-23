@@ -1,7 +1,7 @@
 Django==2.1.7
 django-hosts==3.0
 django-simple-history==2.7.0
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 Faker==1.0.2
 flake8==3.5.0
 psycopg2==2.7.5
