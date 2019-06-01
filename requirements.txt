@@ -6,3 +6,4 @@ Faker==1.0.2
 flake8==3.5.0
 psycopg2==2.7.5
 whitenoise==4.1
+django-private-chat==0.2.2
