@@ -33,7 +33,7 @@ class TitlePage(ListAndCreateView, UrlMixin, PaginatorMixin):
         kwargs['title_text'] = self.title_text
         return kwargs
 
-    @suppress_and_return(Title.DoesNotExist, instead=Title.objects.none())
+    @suppress_and_return(Title.DoesNotExist, instead=lambda: Title.objects.none())
     @order_by(
         'points',
         not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)},

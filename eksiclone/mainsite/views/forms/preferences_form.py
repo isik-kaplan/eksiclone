@@ -14,7 +14,7 @@ class PreferencesForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.request = request
 
-    @suppress_and_return(Theme.DoesNotExist, instead=Theme.objects.get(name='standard', lights=True))
+    @suppress_and_return(Theme.DoesNotExist, instead=lambda: Theme.objects.get(name='standard', lights=True))
     def clean_style(self):
         return Theme.objects.get(name=self.cleaned_data['style'], lights=self.request.user.lights)
 

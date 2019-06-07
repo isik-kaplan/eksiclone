@@ -17,7 +17,7 @@ class ProfilePage(ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/profile/profile.html'
     context_object_name = 'entries'
 
-    @suppress_and_return(User.DoesNotExist, instead=User.objects.none())
+    @suppress_and_return(User.DoesNotExist, instead=lambda: User.objects.none())
     @order_by(
         'points',
         not_fields={'points': Count(F('likers'), distinct=True) - Count(F('dislikers'), distinct=True)},

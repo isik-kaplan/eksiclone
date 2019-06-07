@@ -19,7 +19,7 @@ class TitlesPage(ListView, UrlMixin, PaginatorMixin):
     template_name = 'mainsite/titles/titles.html'
     context_object_name = 'titles'
 
-    @suppress_and_raise(TitleChannel.DoesNotExist, instead=Http404())
+    @suppress_and_raise(TitleChannel.DoesNotExist, instead=Http404)
     def get_queryset(self):
         if self.channel in DEFAULT_CHANNEL_QUERIES:
             query_set = DEFAULT_CHANNEL_QUERIES[self.channel]['query']

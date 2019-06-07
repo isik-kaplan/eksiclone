@@ -81,7 +81,7 @@ def suppress_and_return(*excs, instead):
         def wrapper(*a, **kw):
             with suppress(*excs):
                 return f(*a, **kw)
-            return instead  # pycharm false positive
+            return instead()  # pycharm false positive
 
         return wrapper
 
@@ -94,7 +94,7 @@ def suppress_and_raise(*excs, instead):
         def wrapper(*a, **kw):
             with suppress(*excs):
                 return f(*a, **kw)
-            raise instead
+            raise instead()
 
         return wrapper
 
