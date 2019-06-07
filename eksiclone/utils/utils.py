@@ -29,11 +29,11 @@ def init(initialize):
 
 
 def glob_init(name, path, recursive=False):
-    name = name.replace('.', '\\')
-    path = '\\' + path
+    name = name.replace('.', os.sep)
+    path = os.sep + path
     modules = []
     for module in glob(name + path, recursive=recursive):
-        importable = os.path.splitext(module)[0].replace('\\', '.')
+        importable = os.path.splitext(module)[0].replace(os.sep, '.')
         if '__init__' in importable or '__pycache__' in importable:
             continue
         try:
