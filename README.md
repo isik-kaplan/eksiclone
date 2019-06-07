@@ -6,9 +6,10 @@
   <br>
 </h1>
 
-A working clone of eksisozluk.com.
+A working clone of eksisozluk.com. A demo can be found <a href="//isik-kaplan.rocks">here</a>. 
 
 ## How to run
+Requires 3.6 or higher version of python.
 
 First of all, clone the repo with 
 ````
