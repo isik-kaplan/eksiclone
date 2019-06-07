@@ -80,3 +80,9 @@ it gets reported. You can only report an entry once, even if you try to do it mu
 only one report will be dispatched and you will get informed by a footer "already reported" 
 next to the report button.
 ````
+
+## Copyrights
+````
+This repo uses most of eksisozluk.com's static files for the front-end design, meaning that they own the rights for it. 
+This project aims to re-create the back-end of the social platfrom while not touching the front-ent.  
+````
