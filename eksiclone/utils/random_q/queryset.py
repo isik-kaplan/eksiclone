@@ -4,7 +4,7 @@ from django.db import models
 
 
 class QuerySet(models.query.QuerySet):
-    def random(self, amount=1):
+    """def random(self, amount=1):
         random_pks = []
         while len(random_pks) < amount:
             random_pk = self.__get_random
@@ -16,4 +16,9 @@ class QuerySet(models.query.QuerySet):
     def __get_random(self):
         total = self.count()
         random_index = random.randint(1, total - 1)
-        return self[random_index].pk
+        return self[random_index].pk"""
+
+    # The above has problems, temporarily using slower version:
+
+    def random(self, amount=1):
+        return self.order_by('?')[:amount]
