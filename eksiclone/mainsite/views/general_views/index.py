@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.views.generic import TemplateView
 
 from mainsite.app_models import Title, Event

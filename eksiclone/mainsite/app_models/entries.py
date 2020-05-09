@@ -15,7 +15,7 @@ class Entry(CommonFields):
     author = models.ForeignKey('User', default=1, on_delete=models.SET_DEFAULT, null=True, blank=True)
     readability = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-
+    favorites = models.ManyToManyField('User', related_name='favorites', blank=True)
     @property
     def points(self):
         return self.likers.count() - self.dislikers.count()
