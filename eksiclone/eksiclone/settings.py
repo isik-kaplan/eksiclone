@@ -89,12 +89,8 @@ WSGI_APPLICATION = 'eksiclone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('db-name'),
-        'USER': os.environ.get('db-user'),
-        'PASSWORD': os.environ.get('db-password'),
-        'HOST': os.environ.get('db-host'),
-        'PORT': os.environ.get('db-port'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
