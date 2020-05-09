@@ -1,0 +1,48 @@
+    <div id="content" class="instapaper_body" role="main">
+        <section id="content-body">
+            <div id="topic">
+                <h1 id="the_title">
+                    <a href="" itemprop="url"><span itemprop="name">{{ the_title }}</span></a>
+                </h1>
+                <div class="clearfix sub-title-container">
+                    <div class="sub-title-menu">
+                        {% include 'mainsite/children/nice_toggle.html' %}
+                    </div>
+                    {% if entries %}{% include 'mainsite/children/pager.html' %}{% endif %}
+                    <div style="clear:both"></div>
+                </div>
+                <h1>Entries</h1>
+                <ul id="entry-item-list">
+                    {% for entry in entries %}
+                        {% include 'mainsite/children/entry_in_profile_template.html'%}
+                    {% endfor %}
+                </ul>
+                {% if entries %}{% include 'mainsite/children/pager.html' %}{% endif %}
+                <div style="clear:both"></div>
+                <div style="text-align:center"></div>
+                {% if is_title_page and allowed_to_write %}
+                <div class="entry-edit-form-container">
+                    <form method="POST" class="editform">
+                        {% csrf_token %}
+                        <fieldset class="vertical">
+                            <div class="edittools"></div>
+                            {{ form.non_field_errors }}
+                            <label>
+                                <input style="display: none" name="title" value="{{ title_text }}">
+                            </label>
+                            <textarea minlength="5" style="resize: vertical;min-height: 2cm; overflow:hidden"
+                                      name="text" class="edittextbox with-helpers track-changes" id="editbox"
+                                      placeholder="some place holder because this looks good" rows="10"></textarea>
+                            <div class="actions">
+                                &nbsp;&nbsp;
+                                <button type="submit" class="primary">send</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            &#65279;
+        </section>
+        {% include 'mainsite/children/aside_template.html' %}
+    </div>
