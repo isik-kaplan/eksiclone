@@ -234,7 +234,7 @@
                 <ul id="ajax-index" class="topic-list partial">
                     {% for title in all_titles %}
                         <li><a href="{% url 'title' title_text=title.url %}" draggable="true">{{ title.text }}
-                            <small>0</small>
+                            <small>{{ title.entry_count }}</small>
                         </a></li>
                     {% endfor %}
                 </ul>

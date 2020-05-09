@@ -10,7 +10,7 @@ class Title(CommonFields):
     text = models.CharField(max_length=50, null=True, unique=True)
     channels = models.ManyToManyField('TitleChannel', related_name="titles")
     creator = models.ForeignKey('User', default=1, on_delete=models.SET_DEFAULT)
-
+    entry_count = models.IntegerField(default=0, null=True, unique=False)
     @property
     def random_entry(self):
         return self.entry_set.filter(readability=True).random().get()

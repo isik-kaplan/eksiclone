@@ -3,6 +3,9 @@ from django.db import models
 from mainsite.app_models.common import CommonFields
 from utils.model_decorators import slugify, represent
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 @slugify('pk', '-', '-')
 @represent(strfields=['text', 'author'])
@@ -16,6 +19,11 @@ class Entry(CommonFields):
     @property
     def points(self):
         return self.likers.count() - self.dislikers.count()
-
     class Meta:
         verbose_name_plural = 'Entries'
+
+
+@receiver(post_save, sender=Entry, dispatch_uid="update_entry_count")
+def update_entry(sender, instance, **kwargs):
+    instance.title.entry_count += 1
+    instance.title.save()

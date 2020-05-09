@@ -4,7 +4,7 @@
 {% block content %}
     <div id="content" class="instapaper_body" role="main">
             <section id="content-body">
-<h1>notifications</h1>
+<h1>messages</h1>
 <ul class="tabs">
     <li class="active"><a href="#">unread</a></li>
 </ul>
@@ -18,7 +18,7 @@
           <article>
             <a href="">
               <h2>{% if not new %} Arhived {% else %} New {% endif %}</h2>
-              <p>You don't seem to have any messages</p>
+              <p>Hiç mesajınız yok gibi gözüküyor.</p>
             </a>
           </article>
         </li>
@@ -27,7 +27,7 @@
         <li>
           <article>
             <a href="{% url "message" username=dialog|dialog_other:request.user %}">
-              <h2>{{ dialog.owner }} to {{ dialog.opponent }}</h2>
+              <h2>{{ dialog.owner }} -> {{ dialog.opponent }}</h2>
               <p>{{ dialog.messages.last.text }}</p>
             </a>
             <footer>
