@@ -11,5 +11,6 @@ message_urlpatterns = [
         name='message'
     ),
 ]
-
-mainsite_urls._url_patterns += message_urlpatterns
+mainsite_urls._url_patterns.append(
+    [message_urlpatterns[0], 1]
+)
