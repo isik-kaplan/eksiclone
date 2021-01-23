@@ -1,4 +1,4 @@
-Django==2.1.11
+Django==2.2.13
 django-hosts==3.0
 django-simple-history==2.7.0
 djangorestframework==3.9.1
